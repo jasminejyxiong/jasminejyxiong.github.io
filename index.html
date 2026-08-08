@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jasmine Xiong</title>
+<meta name="description" content="Portfolio of Jasmine Xiong.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="wordmark" href="/">Jasmine Xiong</a>
+  <nav>
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <section class="intro">
+    <h1>Hi, I'm Jasmine.</h1>
+    <p class="lede">
+      One or two sentences on what you do and what you care about.
+      Keep it short — this is the first and sometimes only thing people read.
+    </p>
+  </section>
+
+  <section id="work">
+    <h2>Selected work</h2>
+
+    <ul class="projects">
+      <li class="project">
+        <h3><a href="#">Project name</a></h3>
+        <p class="project-meta">Role · Year</p>
+        <p>What the project was, what you did, and what came of it. Two or three lines is plenty.</p>
+      </li>
+
+      <li class="project">
+        <h3><a href="#">Project name</a></h3>
+        <p class="project-meta">Role · Year</p>
+        <p>What the project was, what you did, and what came of it.</p>
+      </li>
+
+      <li class="project">
+        <h3><a href="#">Project name</a></h3>
+        <p class="project-meta">Role · Year</p>
+        <p>What the project was, what you did, and what came of it.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section id="about">
+    <h2>About</h2>
+    <p>
+      A short bio. Where you work, what you've built, what you're drawn to.
+      A little personality here goes a long way.
+    </p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>
+      <a href="mailto:jasminex0226@gmail.com">jasminex0226@gmail.com</a><br>
+      <a href="https://github.com/jazzymonster">GitHub</a> ·
+      <a href="#">LinkedIn</a>
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© <span id="year"></span> Jasmine Xiong</p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

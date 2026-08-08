@@ -1,0 +1,141 @@
+:root {
+  --bg: #fdfdfc;
+  --fg: #1a1a18;
+  --muted: #6b6b66;
+  --rule: #e4e4df;
+  --accent: #b4552d;
+  --measure: 34rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14140f;
+    --fg: #ecebe6;
+    --muted: #9a9a92;
+    --rule: #2c2c26;
+    --accent: #e08a5c;
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 1.5rem 5rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: 400 clamp(1rem, 0.97rem + 0.15vw, 1.0625rem)/1.65 ui-serif, Georgia, "Times New Roman", serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.site-header,
+main,
+footer {
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 2.5rem 0 0;
+}
+
+.wordmark {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--fg);
+}
+
+nav {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.9375rem;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+nav a:hover { color: var(--accent); }
+
+section { margin-top: 4rem; }
+
+h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.9rem, 1.6rem + 1.4vw, 2.6rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.lede {
+  margin: 0;
+  font-size: 1.15em;
+  color: var(--muted);
+}
+
+h2 {
+  margin: 0 0 1.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+.projects {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.project + .project {
+  margin-top: 2.25rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+.project p { margin: 0.5rem 0 0; }
+
+.project-meta {
+  font-size: 0.875rem;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.15em;
+}
+
+a:hover { text-decoration: none; }
+
+footer {
+  margin-top: 5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
