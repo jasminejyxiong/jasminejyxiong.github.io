@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Employee lifecycle, end to end — Jasmine Xiong</title>
+<meta name="description" content="Designing joiner–mover–leaver at Lumos: provisioning that fires on day one, and deprovisioning that actually finishes.">
+<link rel="canonical" href="https://www.jasminexiong.com/work/lumos-lifecycle/">
+<meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16150f" media="(prefers-color-scheme: dark)">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preload" href="/assets/fonts/quattro-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/mono-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- SHARED HEADER — mirrored on every page. grep: site-header -->
+<header class="site-header wrap">
+  <a class="wordmark" href="/">Jasmine Xiong</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/">work</a>
+    <a href="/personal/">personal</a>
+    <a href="/manifesto/">manifesto</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap">
+
+  <article>
+
+    <header class="cs-hero">
+      <p class="eyebrow">Lumos · Product Designer · 2025</p>
+      <h1 style="view-transition-name: t-lumos-lifecycle">Employee lifecycle, end to end</h1>
+      <p class="cs-outcome">
+        <!-- TODO(jasmine): one sentence, the outcome claim. -->
+        Provisioning that fires the moment someone shows up in the HR system,
+        and deprovisioning that finishes instead of stalling halfway.
+      </p>
+
+      <!-- TODO(jasmine): real numbers. Metrics above the fold is the point. -->
+      <div class="cs-metrics">
+        <div>
+          <span class="cs-metric-value">—</span>
+          <span class="cs-metric-label">Time to first access</span>
+        </div>
+        <div>
+          <span class="cs-metric-value">—</span>
+          <span class="cs-metric-label">Manual tickets removed</span>
+        </div>
+        <div>
+          <span class="cs-metric-value">—</span>
+          <span class="cs-metric-label">Orphaned accounts</span>
+        </div>
+      </div>
+
+      <figure class="figure figure--wide">
+        <div class="sheet sheet--empty">
+          Hero image goes here —<br>the one screen that explains the whole thing
+        </div>
+        <figcaption class="figcaption">
+          <span class="fig-num">01</span>
+          <span>TODO: the lifecycle workflow builder, mid-configuration.</span>
+        </figcaption>
+      </figure>
+    </header>
+
+    <section>
+      <h2 class="section-rule">Context</h2>
+      <p>
+        Lumos connects HR systems, identity providers, and the long tail of SaaS
+        apps a company actually runs on. Lifecycle management is the promise
+        that all three stay in agreement about who works here and what they can
+        touch.
+      </p>
+      <p>
+        <!-- TODO(jasmine): who the user is. IT admin? Security? Both? -->
+        The people configuring this are IT and security admins who are measured
+        on things going quietly right, and who inherit the blame when they don't.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-rule">The problem</h2>
+      <p>
+        Joiner–mover–leaver breaks in three predictable places. New hires wait
+        days for the access they were supposed to start with. Internal moves go
+        unmanaged, so permissions accumulate and nothing is ever taken away.
+        Departures leave accounts alive in systems nobody remembered were
+        connected.
+      </p>
+
+      <p class="note">
+        <strong>The uncomfortable version:</strong> most companies don't have a
+        provisioning problem. They have a deprovisioning problem, and they find
+        out during an audit.
+      </p>
+
+      <figure class="figure">
+        <div class="sheet sheet--empty">
+          Evidence — the old flow, a support queue,<br>or a quote from a customer
+        </div>
+        <figcaption class="figcaption">
+          <span class="fig-num">02</span>
+          <span>TODO: show the problem rather than asserting it.</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2 class="section-rule">Role &amp; constraints</h2>
+      <p>
+        <!-- TODO(jasmine): be specific. This is the section hiring managers read. -->
+        I owned the end-to-end design: the workflow model, the configuration
+        surface, and how state is communicated once a workflow is live. I
+        worked with <span class="mark">[PM]</span> and
+        <span class="mark">[engineers]</span> over
+        <span class="mark">[duration]</span>.
+      </p>
+      <p>
+        What I didn't control: the underlying connector coverage, and the shape
+        of the data arriving from each customer's HRIS — which varied more than
+        any design could fully absorb.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-rule">Process</h2>
+
+      <h3>Modelling the workflow</h3>
+      <p>
+        <!-- TODO(jasmine): the actual thinking. What did you try first? -->
+        The first model treated lifecycle as a set of rules per app. It fell
+        apart as soon as a customer needed the same app granted differently by
+        team, title, and location.
+      </p>
+
+      <figure class="figure figure--wide">
+        <div class="sheet sheet--empty">
+          Explorations — annotated, showing what you rejected
+        </div>
+        <figcaption class="figcaption">
+          <span class="fig-num">03</span>
+          <span>TODO: the rejected directions are more interesting than the final one.</span>
+        </figcaption>
+      </figure>
+
+      <h3>Getting timing right</h3>
+      <p>
+        Access has a shape in time: granted slightly before day one, revoked at
+        exactly the right moment on the way out, with a grace window where a
+        manager can intervene. Most of the design work was about making that
+        timing visible and adjustable without turning it into a scheduling app.
+      </p>
+
+      <!-- A doodle earning its place: an arrow pointing at the thing that matters. -->
+      <svg class="doodle" width="120" height="52" viewBox="0 0 120 52" aria-hidden="true" focusable="false">
+        <path pathLength="1" d="M4 44C22 40 38 28 52 16c8-7 18-11 30-10"/>
+        <path pathLength="1" d="M74 4c4 1 7 3 9 6M82 10c-3 2-6 3-10 3"/>
+      </svg>
+    </section>
+
+    <section>
+      <h2 class="section-rule">The solution</h2>
+      <p>
+        <!-- TODO(jasmine): walk through it, one idea per figure. -->
+        Attributes from the HR system drive everything. An admin describes the
+        rule once — this team, this title, this location, gets this access — and
+        the workflow runs on every joiner, mover, and leaver from then on.
+      </p>
+
+      <figure class="figure figure--wide">
+        <div class="sheet sheet--empty">
+          The solution, one idea per figure
+        </div>
+        <figcaption class="figcaption">
+          <span class="fig-num">04</span>
+          <span>TODO: rule configuration.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="figure figure--wide">
+        <div class="sheet sheet--empty">
+          Second figure — state once a workflow is live
+        </div>
+        <figcaption class="figcaption">
+          <span class="fig-num">05</span>
+          <span>TODO: what an admin sees when it's running.</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2 class="section-rule">Outcome</h2>
+      <p>
+        <!-- TODO(jasmine): repeat the metrics with context. -->
+        A fintech customer now drives provisioning across their entire app stack
+        from Workday attributes, with no manual step in between.
+      </p>
+      <p>
+        I wrote about the thinking behind this in more depth for the Lumos blog:
+        <a href="https://www.lumos.com/blog/future-of-lifecycle-management-unified-intelligent-human" rel="noopener">
+          The Future of Lifecycle Management Is Unified, Intelligent, and Human</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-rule">What I'd change</h2>
+      <p>
+        <!-- TODO(jasmine): one honest paragraph. This section is worth more than it costs. -->
+        I'd push harder on the failure states. The happy path got the attention
+        it deserved; the design for a workflow that half-ran, against a system
+        that timed out, arrived later than it should have.
+      </p>
+    </section>
+
+    <nav class="pagination" aria-label="Case studies">
+      <a href="/">← all work</a>
+      <a href="/work/lumos-app-store/">next: an app store that answers back →</a>
+    </nav>
+
+  </article>
+
+</main>
+
+<!-- SHARED FOOTER — mirrored on every page. grep: site-footer -->
+<footer class="site-footer wrap">
+  <div class="footer-row">
+    <p style="margin:0">
+      <a href="mailto:jasminex0226@gmail.com">email</a> ·
+      <a href="https://github.com/jasminejyxiong" rel="me noopener">github</a> ·
+      <a href="https://www.linkedin.com/" rel="me noopener">linkedin</a>
+    </p>
+    <p class="theme-toggle" style="margin:0">
+      <span>theme:</span>
+      <button type="button" data-theme-set="light">light</button>
+      <button type="button" data-theme-set="dark">dark</button>
+      <button type="button" data-theme-set="auto">auto</button>
+    </p>
+  </div>
+  <p style="margin:var(--s-2) 0 0">Set in iA Writer. Drawn by hand. Built in a text editor.</p>
+</footer>
+
+<script src="/assets/js/theme.js" defer></script>
+<script src="/assets/js/doodles.js" defer></script>
+<script src="/assets/js/eyes.js" defer></script>
+
+</body>
+</html>

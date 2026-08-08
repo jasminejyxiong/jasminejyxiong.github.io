@@ -3,81 +3,181 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jasmine Xiong</title>
-<meta name="description" content="Portfolio of Jasmine Xiong.">
-<link rel="stylesheet" href="styles.css">
+<title>Jasmine Xiong — Product Designer</title>
+<meta name="description" content="Jasmine Xiong is a product designer working on identity, access, and the parts of software people never think about until they break.">
+<link rel="canonical" href="https://www.jasminexiong.com/">
+<meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16150f" media="(prefers-color-scheme: dark)">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preload" href="/assets/fonts/quattro-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/mono-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body>
 
-<header class="site-header">
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- SHARED HEADER — mirrored on every page. grep: site-header -->
+<header class="site-header wrap">
   <a class="wordmark" href="/">Jasmine Xiong</a>
-  <nav>
-    <a href="#work">Work</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/" aria-current="page">work</a>
+    <a href="/personal/">personal</a>
+    <a href="/manifesto/">manifesto</a>
   </nav>
 </header>
 
-<main>
+<main id="main" class="wrap">
 
   <section class="intro">
-    <h1>Hi, I'm Jasmine.</h1>
+    <div class="intro-head">
+      <div>
+        <p class="status">Designing at Lumos · San Francisco</p>
+        <h1>Product designer working on identity, access, and other invisible plumbing.</h1>
+      </div>
+
+      <!-- Cursor-following eyes. Static and open when JS is off. -->
+      <svg class="eyes" viewBox="0 0 76 40" aria-hidden="true" focusable="false">
+        <g data-eye>
+          <path class="lid" d="M3.6 20.4c1.4-6.9 8.4-11.6 16.6-11.3 7.9.3 14.7 5.2 15.8 11.4-1.2 6.3-8 10.8-16.1 10.6-8.1-.2-14.9-4.5-16.3-10.7z"/>
+          <circle class="pupil" data-pupil cx="20" cy="20" r="4.8"/>
+        </g>
+        <g data-eye>
+          <path class="lid" d="M39.6 20.4c1.4-6.9 8.4-11.6 16.6-11.3 7.9.3 14.7 5.2 15.8 11.4-1.2 6.3-8 10.8-16.1 10.6-8.1-.2-14.9-4.5-16.3-10.7z"/>
+          <circle class="pupil" data-pupil cx="56" cy="20" r="4.8"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- TODO(jasmine): replace with your own words. -->
     <p class="lede">
-      One or two sentences on what you do and what you care about.
-      Keep it short — this is the first and sometimes only thing people read.
+      I work on the systems that decide who gets to do what — provisioning,
+      permissions, the request that should have been approved three days ago.
+      Unglamorous surface area, enormous blast radius when it goes wrong.
     </p>
   </section>
 
-  <section id="work">
-    <h2>Selected work</h2>
+  <section aria-labelledby="work-heading">
+    <h2 class="section-rule" id="work-heading">Selected work</h2>
 
-    <ul class="projects">
+    <ol class="projects">
+
       <li class="project">
-        <h3><a href="#">Project name</a></h3>
-        <p class="project-meta">Role · Year</p>
-        <p>What the project was, what you did, and what came of it. Two or three lines is plenty.</p>
+        <h3 class="project-title" style="view-transition-name: t-lumos-lifecycle">
+          <a href="/work/lumos-lifecycle/">Employee lifecycle, end to end</a>
+        </h3>
+        <dl class="meta">
+          <dt>Company</dt><dd>Lumos</dd>
+          <dt>Year</dt><dd>2025</dd>
+          <dt>Role</dt><dd>Product Designer</dd>
+          <dt>Fields</dt><dd>Product design · Systems design · Workflow</dd>
+        </dl>
+        <p class="project-about">
+          Joiner–mover–leaver is the least romantic problem in software and one
+          of the most consequential. Designing provisioning that fires on day
+          one and deprovisioning that actually finishes.
+        </p>
       </li>
 
       <li class="project">
-        <h3><a href="#">Project name</a></h3>
-        <p class="project-meta">Role · Year</p>
-        <p>What the project was, what you did, and what came of it.</p>
+        <h3 class="project-title" style="view-transition-name: t-lumos-app-store">
+          <a href="/work/lumos-app-store/">An app store that answers back</a>
+        </h3>
+        <dl class="meta">
+          <dt>Company</dt><dd>Lumos</dd>
+          <dt>Year</dt><dd>2025</dd>
+          <dt>Role</dt><dd>Product Designer</dd>
+          <dt>Fields</dt><dd>Agentic UX · Conversational · Slack</dd>
+        </dl>
+        <p class="project-about">
+          Access requests where people already are, answered by an agent that
+          knows the policy. Designing for a surface with no pixels to spare.
+        </p>
       </li>
 
       <li class="project">
-        <h3><a href="#">Project name</a></h3>
-        <p class="project-meta">Role · Year</p>
-        <p>What the project was, what you did, and what came of it.</p>
+        <h3 class="project-title" style="view-transition-name: t-lumos-platform-agents">
+          <a href="/work/lumos-platform-agents/">Giving agents something to do</a>
+        </h3>
+        <dl class="meta">
+          <dt>Company</dt><dd>Lumos</dd>
+          <dt>Year</dt><dd>2026</dd>
+          <dt>Role</dt><dd>Product Designer</dd>
+          <dt>Fields</dt><dd>Platform · Agentic UX · Trust</dd>
+        </dl>
+        <p class="project-about">
+          Agent tasks on the platform: what work gets delegated, how progress
+          stays legible, and where a human has to stay in the loop.
+        </p>
       </li>
-    </ul>
+
+      <li class="project">
+        <h3 class="project-title" style="view-transition-name: t-koho-cover">
+          <a href="/work/koho-cover/">Cover</a>
+        </h3>
+        <dl class="meta">
+          <dt>Company</dt><dd>KOHO</dd>
+          <dt>Year</dt><dd>2023</dd>
+          <dt>Role</dt><dd>Product Designer</dd>
+          <dt>Fields</dt><dd>Fintech · Consumer · Trust</dd>
+        </dl>
+        <p class="project-about">
+          Short-term liquidity for people living close to the line, designed so
+          that borrowing never feels like a trapdoor.
+        </p>
+      </li>
+
+      <li class="project">
+        <h3 class="project-title" style="view-transition-name: t-koho-save">
+          <a href="/work/koho-save/">Save</a>
+        </h3>
+        <dl class="meta">
+          <dt>Company</dt><dd>KOHO</dd>
+          <dt>Year</dt><dd>2022</dd>
+          <dt>Role</dt><dd>Product Designer</dd>
+          <dt>Fields</dt><dd>Fintech · Consumer · Behavioural</dd>
+        </dl>
+        <p class="project-about">
+          Saving is a habit problem wearing a finance costume. Designing for the
+          moment right before someone gives up.
+        </p>
+      </li>
+
+    </ol>
   </section>
 
-  <section id="about">
-    <h2>About</h2>
+  <section aria-labelledby="else-heading">
+    <h2 class="section-rule" id="else-heading">Elsewhere on this site</h2>
     <p>
-      A short bio. Where you work, what you've built, what you're drawn to.
-      A little personality here goes a long way.
-    </p>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>
-      <a href="mailto:jasminex0226@gmail.com">jasminex0226@gmail.com</a><br>
-      <a href="https://github.com/jazzymonster">GitHub</a> ·
-      <a href="#">LinkedIn</a>
+      A <a href="/manifesto/">mini manifesto</a> about how I think design should
+      work, and the <a href="/personal/">personal shelf</a> — what I'm reading,
+      what's on repeat, and a small game that isn't built yet.
     </p>
   </section>
 
 </main>
 
-<footer>
-  <p>© <span id="year"></span> Jasmine Xiong</p>
+<!-- SHARED FOOTER — mirrored on every page. grep: site-footer -->
+<footer class="site-footer wrap">
+  <div class="footer-row">
+    <p style="margin:0">
+      <a href="mailto:jasminex0226@gmail.com">email</a> ·
+      <a href="https://github.com/jasminejyxiong" rel="me noopener">github</a> ·
+      <a href="https://www.linkedin.com/" rel="me noopener">linkedin</a>
+    </p>
+    <p class="theme-toggle" style="margin:0">
+      <span>theme:</span>
+      <button type="button" data-theme-set="light">light</button>
+      <button type="button" data-theme-set="dark">dark</button>
+      <button type="button" data-theme-set="auto">auto</button>
+    </p>
+  </div>
+  <p style="margin:var(--s-2) 0 0">Set in iA Writer. Drawn by hand. Built in a text editor.</p>
 </footer>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+<script src="/assets/js/theme.js" defer></script>
+<script src="/assets/js/doodles.js" defer></script>
+<script src="/assets/js/eyes.js" defer></script>
 
 </body>
 </html>
