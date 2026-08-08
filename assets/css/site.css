@@ -50,8 +50,11 @@
 :root {
   color-scheme: light dark;
 
+  /* --grid drives the spacing scale. The drawn cell is deliberately much
+     larger, so the paper reads as roomy rather than as a dense mesh. */
   --grid: 8px;
-  --grid-major: 64px;
+  --grid-cell: 34px;
+  --grid-cell-major: 170px;
 
   --s-1: var(--grid);
   --s-2: calc(var(--grid) * 2);
@@ -134,10 +137,13 @@ body::before {
     linear-gradient(var(--grid-ink) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px);
   background-size:
-    100% var(--grid-major),
-    var(--grid-major) 100%,
-    100% var(--grid),
-    var(--grid) 100%;
+    100% var(--grid-cell-major),
+    var(--grid-cell-major) 100%,
+    100% var(--grid-cell),
+    var(--grid-cell) 100%;
+  /* Fade the paper out toward the edges so it never fights the frame. */
+  -webkit-mask-image: radial-gradient(ellipse 78% 68% at 50% 42%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 78% 68% at 50% 42%, #000 30%, transparent 100%);
   view-transition-name: substrate;
 }
 
@@ -158,6 +164,8 @@ body::before {
       calc(50% - var(--measure-wide) / 2 - var(--s-6)) 0,
       calc(50% + var(--measure-wide) / 2 + var(--s-6)) 0;
     background-size: 1px 100%;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
   }
 }
 

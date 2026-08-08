@@ -69,7 +69,7 @@ For motion, use a muted looping MP4, never a GIF:
 | Path | What |
 |---|---|
 | `assets/css/site.css` | All styling. Tokens at the top. |
-| `assets/js/theme.js` | Light/dark/auto toggle |
+| `assets/js/theme.js` | Light/dark toggle |
 | `assets/js/doodles.js` | Draw-on animation for inline SVG |
 | `assets/js/eyes.js` | Cursor-following eyes |
 | `assets/fonts/` | iA Writer Quattro + Mono, SIL OFL 1.1 |
