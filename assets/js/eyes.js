@@ -9,8 +9,7 @@
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
 
-  var MAX = 4.2;      // pupil travel, in SVG user units
-  var REACH = 260;    // px at which the pupil is fully deflected
+  var REACH = 320;    // px at which the catchlight is fully deflected
   var pointer = null;
   var queued = false;
 
@@ -27,8 +26,11 @@
 
       var dx = pointer.x - (box.left + box.width / 2);
       var dy = pointer.y - (box.top + box.height / 2);
+      // Travel is in SVG user units, so it comes from the markup rather than
+      // being hard-coded — the face and the small face use different viewBoxes.
+      var max = parseFloat(eye.dataset.travel) || 4.2;
       var dist = Math.hypot(dx, dy) || 1;
-      var pull = Math.min(dist / REACH, 1) * MAX;
+      var pull = Math.min(dist / REACH, 1) * max;
 
       pupil.setAttribute(
         "transform",

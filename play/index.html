@@ -20,11 +20,18 @@
 <!-- SHARED HEADER — mirrored on every page. grep: site-header -->
 <header class="site-header wrap">
   <a class="wordmark" href="/">Jasmine Xiong</a>
-  <nav class="site-nav" aria-label="Primary">
+  <div class="header-end">
+    <nav class="site-nav" aria-label="Primary">
     <a href="/">work</a>
     <a href="/personal/">personal</a>
     <a href="/manifesto/">manifesto</a>
   </nav>
+    <div class="theme-toggle" role="group" aria-label="Colour theme">
+      <button type="button" data-theme-set="light">light</button>
+      <button type="button" data-theme-set="dark">dark</button>
+      <button type="button" data-theme-set="auto">auto</button>
+    </div>
+  </div>
 </header>
 
 <main id="main" class="wrap">
@@ -34,15 +41,18 @@
         <p class="eyebrow">Play</p>
         <h1>Nothing here yet. The eyes are watching anyway.</h1>
       </div>
-      <svg class="eyes" viewBox="0 0 76 40" aria-hidden="true" focusable="false">
-        <g data-eye>
-          <path class="lid" d="M3.6 20.4c1.4-6.9 8.4-11.6 16.6-11.3 7.9.3 14.7 5.2 15.8 11.4-1.2 6.3-8 10.8-16.1 10.6-8.1-.2-14.9-4.5-16.3-10.7z"/>
-          <circle class="pupil" data-pupil cx="20" cy="20" r="4.8"/>
+      <svg class="face face--sm" viewBox="0 0 200 130" aria-hidden="true" focusable="false">
+        <circle class="face-blush" cx="38" cy="92" r="18"/>
+        <circle class="face-blush" cx="162" cy="92" r="18"/>
+        <g data-eye data-travel="7">
+          <path class="face-eye" d="M12 62C30 38 62 30 84 44c3 2 4 5 4 8-12 11-40 16-62 14-7-1-12-2-14-4z"/>
+          <circle class="face-glint" data-pupil cx="52" cy="52" r="6.5"/>
         </g>
-        <g data-eye>
-          <path class="lid" d="M39.6 20.4c1.4-6.9 8.4-11.6 16.6-11.3 7.9.3 14.7 5.2 15.8 11.4-1.2 6.3-8 10.8-16.1 10.6-8.1-.2-14.9-4.5-16.3-10.7z"/>
-          <circle class="pupil" data-pupil cx="56" cy="20" r="4.8"/>
+        <g data-eye data-travel="7">
+          <path class="face-eye" d="M188 62C170 38 138 30 116 44c-3 2-4 5-4 8 12 11 40 16 62 14 7-1 12-2 14-4z"/>
+          <circle class="face-glint" data-pupil cx="148" cy="52" r="6.5"/>
         </g>
+        <path class="face-nose" d="M101 68c0 9 0 15-6 17-4 1-6-2-4-5"/>
       </svg>
     </div>
     <p class="lede">This URL is a promise. A small game will live here once I decide what it should be — something quick, something you would not expect on a portfolio.</p><p><a href="/personal/">← back to the shelf</a></p>
@@ -57,14 +67,8 @@
       <a href="https://github.com/jasminejyxiong" rel="me noopener">github</a> ·
       <a href="https://www.linkedin.com/" rel="me noopener">linkedin</a>
     </p>
-    <p class="theme-toggle" style="margin:0">
-      <span>theme:</span>
-      <button type="button" data-theme-set="light">light</button>
-      <button type="button" data-theme-set="dark">dark</button>
-      <button type="button" data-theme-set="auto">auto</button>
-    </p>
+    <p style="margin:0">Set in iA Writer. Drawn by hand. Built in a text editor.</p>
   </div>
-  <p style="margin:var(--s-2) 0 0">Set in iA Writer. Drawn by hand. Built in a text editor.</p>
 </footer>
 
 <script src="/assets/js/theme.js" defer></script>

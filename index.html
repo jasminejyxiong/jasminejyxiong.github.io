@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jasmine Xiong — Product Designer</title>
-<meta name="description" content="Jasmine Xiong is a product designer working on identity, access, and the parts of software people never think about until they break.">
+<meta name="description" content="Jasmine Xiong is a product designer at Lumos, currently living in Toronto.">
 <link rel="canonical" href="https://www.jasminexiong.com/">
 <meta name="theme-color" content="#faf7f0" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#16150f" media="(prefers-color-scheme: dark)">
@@ -18,128 +18,110 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- SHARED HEADER — mirrored on every page. grep: site-header -->
-<header class="site-header wrap">
+<header class="site-header wrap wrap--wide">
   <a class="wordmark" href="/">Jasmine Xiong</a>
-  <nav class="site-nav" aria-label="Primary">
-    <a href="/" aria-current="page">work</a>
-    <a href="/personal/">personal</a>
-    <a href="/manifesto/">manifesto</a>
-  </nav>
+  <div class="header-end">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/" aria-current="page">work</a>
+      <a href="/personal/">personal</a>
+      <a href="/manifesto/">manifesto</a>
+    </nav>
+    <div class="theme-toggle" role="group" aria-label="Colour theme">
+      <button type="button" data-theme-set="light">light</button>
+      <button type="button" data-theme-set="dark">dark</button>
+      <button type="button" data-theme-set="auto">auto</button>
+    </div>
+  </div>
 </header>
 
-<main id="main" class="wrap">
+<main id="main" class="wrap wrap--wide">
 
-  <section class="intro">
-    <div class="intro-head">
-      <div>
-        <p class="status">Designing at Lumos · San Francisco</p>
-        <h1>Product designer working on identity, access, and other invisible plumbing.</h1>
-      </div>
+  <!-- ABOVE THE FOLD — few words, big type, a face that watches you. -->
+  <section class="hero">
 
-      <!-- Cursor-following eyes. Static and open when JS is off. -->
-      <svg class="eyes" viewBox="0 0 76 40" aria-hidden="true" focusable="false">
-        <g data-eye>
-          <path class="lid" d="M3.6 20.4c1.4-6.9 8.4-11.6 16.6-11.3 7.9.3 14.7 5.2 15.8 11.4-1.2 6.3-8 10.8-16.1 10.6-8.1-.2-14.9-4.5-16.3-10.7z"/>
-          <circle class="pupil" data-pupil cx="20" cy="20" r="4.8"/>
-        </g>
-        <g data-eye>
-          <path class="lid" d="M39.6 20.4c1.4-6.9 8.4-11.6 16.6-11.3 7.9.3 14.7 5.2 15.8 11.4-1.2 6.3-8 10.8-16.1 10.6-8.1-.2-14.9-4.5-16.3-10.7z"/>
-          <circle class="pupil" data-pupil cx="56" cy="20" r="4.8"/>
-        </g>
-      </svg>
-    </div>
+    <svg class="face" viewBox="0 0 200 130" aria-hidden="true" focusable="false">
+      <circle class="face-blush" cx="38" cy="92" r="18"/>
+      <circle class="face-blush" cx="162" cy="92" r="18"/>
 
-    <!-- TODO(jasmine): replace with your own words. -->
-    <p class="lede">
-      I work on the systems that decide who gets to do what — provisioning,
-      permissions, the request that should have been approved three days ago.
-      Unglamorous surface area, enormous blast radius when it goes wrong.
+      <g data-eye data-travel="7">
+        <path class="face-eye" d="M12 62C30 38 62 30 84 44c3 2 4 5 4 8-12 11-40 16-62 14-7-1-12-2-14-4z"/>
+        <circle class="face-glint" data-pupil cx="52" cy="52" r="6.5"/>
+      </g>
+
+      <g data-eye data-travel="7">
+        <path class="face-eye" d="M188 62C170 38 138 30 116 44c-3 2-4 5-4 8 12 11 40 16 62 14 7-1 12-2 14-4z"/>
+        <circle class="face-glint" data-pupil cx="148" cy="52" r="6.5"/>
+      </g>
+
+      <path class="face-nose" d="M101 68c0 9 0 15-6 17-4 1-6-2-4-5"/>
+    </svg>
+
+    <h1 class="hero-statement">
+      Jasmine Xiong is a product designer at <span class="mark">Lumos</span>,
+      currently living in Toronto.
+    </h1>
+
+    <p class="hero-meta">
+      <span>Product Designer</span>
+      <span class="rule"></span>
+      <span>Toronto, Canada</span>
     </p>
+
+    <a class="hero-cue" href="#work">selected work ↓</a>
   </section>
 
-  <section aria-labelledby="work-heading">
+  <!-- BELOW THE FOLD — the tiles. -->
+  <section id="work" aria-labelledby="work-heading">
     <h2 class="section-rule" id="work-heading">Selected work</h2>
 
-    <ol class="projects">
+    <ol class="tiles">
 
-      <li class="project">
-        <h3 class="project-title" style="view-transition-name: t-lumos-lifecycle">
-          <a href="/work/lumos-lifecycle/">Employee lifecycle, end to end</a>
-        </h3>
-        <dl class="meta">
-          <dt>Company</dt><dd>Lumos</dd>
-          <dt>Year</dt><dd>2025</dd>
-          <dt>Role</dt><dd>Product Designer</dd>
-          <dt>Fields</dt><dd>Product design · Systems design · Workflow</dd>
-        </dl>
-        <p class="project-about">
-          Joiner–mover–leaver is the least romantic problem in software and one
-          of the most consequential. Designing provisioning that fires on day
-          one and deprovisioning that actually finishes.
+      <li class="tile" style="view-transition-name: t-lumos-lifecycle">
+        <span class="tile-num">01</span>
+        <h3 class="tile-title"><a href="/work/lumos-lifecycle/">Employee lifecycle, end to end</a></h3>
+        <span class="tile-meta">Lumos · 2025</span>
+        <p class="tile-about">
+          Provisioning that fires on day one, and deprovisioning that actually
+          finishes.
         </p>
       </li>
 
-      <li class="project">
-        <h3 class="project-title" style="view-transition-name: t-lumos-app-store">
-          <a href="/work/lumos-app-store/">An app store that answers back</a>
-        </h3>
-        <dl class="meta">
-          <dt>Company</dt><dd>Lumos</dd>
-          <dt>Year</dt><dd>2025</dd>
-          <dt>Role</dt><dd>Product Designer</dd>
-          <dt>Fields</dt><dd>Agentic UX · Conversational · Slack</dd>
-        </dl>
-        <p class="project-about">
-          Access requests where people already are, answered by an agent that
-          knows the policy. Designing for a surface with no pixels to spare.
+      <li class="tile" style="view-transition-name: t-lumos-app-store">
+        <span class="tile-num">02</span>
+        <h3 class="tile-title"><a href="/work/lumos-app-store/">An app store that answers back</a></h3>
+        <span class="tile-meta">Lumos · 2025</span>
+        <p class="tile-about">
+          Access requests answered by an agent, in Slack, where people already
+          are.
         </p>
       </li>
 
-      <li class="project">
-        <h3 class="project-title" style="view-transition-name: t-lumos-platform-agents">
-          <a href="/work/lumos-platform-agents/">Giving agents something to do</a>
-        </h3>
-        <dl class="meta">
-          <dt>Company</dt><dd>Lumos</dd>
-          <dt>Year</dt><dd>2026</dd>
-          <dt>Role</dt><dd>Product Designer</dd>
-          <dt>Fields</dt><dd>Platform · Agentic UX · Trust</dd>
-        </dl>
-        <p class="project-about">
-          Agent tasks on the platform: what work gets delegated, how progress
-          stays legible, and where a human has to stay in the loop.
+      <li class="tile" style="view-transition-name: t-lumos-platform-agents">
+        <span class="tile-num">03</span>
+        <h3 class="tile-title"><a href="/work/lumos-platform-agents/">Giving agents something to do</a></h3>
+        <span class="tile-meta">Lumos · 2026</span>
+        <p class="tile-about">
+          What work gets delegated, how progress stays legible, and where a
+          human has to stay in the loop.
         </p>
       </li>
 
-      <li class="project">
-        <h3 class="project-title" style="view-transition-name: t-koho-cover">
-          <a href="/work/koho-cover/">Cover</a>
-        </h3>
-        <dl class="meta">
-          <dt>Company</dt><dd>KOHO</dd>
-          <dt>Year</dt><dd>2023</dd>
-          <dt>Role</dt><dd>Product Designer</dd>
-          <dt>Fields</dt><dd>Fintech · Consumer · Trust</dd>
-        </dl>
-        <p class="project-about">
-          Short-term liquidity for people living close to the line, designed so
-          that borrowing never feels like a trapdoor.
+      <li class="tile" style="view-transition-name: t-koho-cover">
+        <span class="tile-num">04</span>
+        <h3 class="tile-title"><a href="/work/koho-cover/">Cover</a></h3>
+        <span class="tile-meta">KOHO · 2023</span>
+        <p class="tile-about">
+          Short-term liquidity designed so that borrowing never feels like a
+          trapdoor.
         </p>
       </li>
 
-      <li class="project">
-        <h3 class="project-title" style="view-transition-name: t-koho-save">
-          <a href="/work/koho-save/">Save</a>
-        </h3>
-        <dl class="meta">
-          <dt>Company</dt><dd>KOHO</dd>
-          <dt>Year</dt><dd>2022</dd>
-          <dt>Role</dt><dd>Product Designer</dd>
-          <dt>Fields</dt><dd>Fintech · Consumer · Behavioural</dd>
-        </dl>
-        <p class="project-about">
-          Saving is a habit problem wearing a finance costume. Designing for the
-          moment right before someone gives up.
+      <li class="tile" style="view-transition-name: t-koho-save">
+        <span class="tile-num">05</span>
+        <h3 class="tile-title"><a href="/work/koho-save/">Save</a></h3>
+        <span class="tile-meta">KOHO · 2022</span>
+        <p class="tile-about">
+          Saving is a habit problem wearing a finance costume.
         </p>
       </li>
 
@@ -158,21 +140,15 @@
 </main>
 
 <!-- SHARED FOOTER — mirrored on every page. grep: site-footer -->
-<footer class="site-footer wrap">
+<footer class="site-footer wrap wrap--wide">
   <div class="footer-row">
     <p style="margin:0">
       <a href="mailto:jasminex0226@gmail.com">email</a> ·
       <a href="https://github.com/jasminejyxiong" rel="me noopener">github</a> ·
       <a href="https://www.linkedin.com/" rel="me noopener">linkedin</a>
     </p>
-    <p class="theme-toggle" style="margin:0">
-      <span>theme:</span>
-      <button type="button" data-theme-set="light">light</button>
-      <button type="button" data-theme-set="dark">dark</button>
-      <button type="button" data-theme-set="auto">auto</button>
-    </p>
+    <p style="margin:0">Set in iA Writer. Drawn by hand. Built in a text editor.</p>
   </div>
-  <p style="margin:var(--s-2) 0 0">Set in iA Writer. Drawn by hand. Built in a text editor.</p>
 </footer>
 
 <script src="/assets/js/theme.js" defer></script>

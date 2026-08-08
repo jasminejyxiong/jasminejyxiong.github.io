@@ -74,18 +74,24 @@
   --muted:   light-dark(#6b6660, #9a958a);
   --rule:    light-dark(#e0dace, #2e2c24);
   --accent:  light-dark(#b4552d, #e08a5c);
-  --mark:    light-dark(#f6e2a8, #4a4326);
+  --mark:    light-dark(#e8a08b, #8a4526);
   --paper:   light-dark(#fffdf8, #1d1b14);
 
-  /* Thin light lines on dark read fainter than dark on light, so dark gets a
-     nudge. Uses light-dark() rather than a media query so the manual theme
+  /* The grid is paper texture, not furniture — it should be felt more than
+     seen. Thin light lines on dark read fainter than dark on light, so dark
+     gets a nudge. light-dark() rather than a media query, so the manual theme
      toggle is honoured too. */
   --grid-ink: light-dark(
-    color-mix(in oklab, #1c1a17 7%, transparent),
-    color-mix(in oklab, #ece8de 9%, transparent));
+    color-mix(in oklab, #1c1a17 3.5%, transparent),
+    color-mix(in oklab, #ece8de 4.5%, transparent));
   --grid-ink-major: light-dark(
-    color-mix(in oklab, #1c1a17 13%, transparent),
-    color-mix(in oklab, #ece8de 15%, transparent));
+    color-mix(in oklab, #1c1a17 6%, transparent),
+    color-mix(in oklab, #ece8de 7%, transparent));
+  /* The two structural rules that frame the page — these carry the "grid"
+     idea deliberately, so the substrate doesn't have to shout. */
+  --rule-frame: light-dark(
+    color-mix(in oklab, #1c1a17 11%, transparent),
+    color-mix(in oklab, #ece8de 11%, transparent));
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --dur: 200ms;
@@ -133,6 +139,26 @@ body::before {
     100% var(--grid),
     var(--grid) 100%;
   view-transition-name: substrate;
+}
+
+/* Two vertical rules framing the content column. Structure you notice, in
+   place of a grid you can't ignore. */
+@media (min-width: 60rem) {
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(90deg, var(--rule-frame) 1px, transparent 1px),
+      linear-gradient(90deg, var(--rule-frame) 1px, transparent 1px);
+    background-repeat: no-repeat;
+    background-position:
+      calc(50% - var(--measure-wide) / 2 - var(--s-6)) 0,
+      calc(50% + var(--measure-wide) / 2 + var(--s-6)) 0;
+    background-size: 1px 100%;
+  }
 }
 
 /* ---- Layout ----------------------------------------------------------- */
@@ -203,6 +229,26 @@ section { margin-top: var(--s-12); }
 .site-nav a:hover { color: var(--fg); border-bottom-color: var(--accent); }
 .site-nav a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--accent); }
 
+/* Nav and theme toggle share the right-hand end of the header, separated by a
+   hairline so the toggle doesn't read as a fourth nav item. */
+.header-end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2) var(--s-3);
+}
+
+.header-end .theme-toggle { padding-left: var(--s-3); position: relative; }
+
+.header-end .theme-toggle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  bottom: 0.1em;
+  border-left: 1px solid var(--rule);
+}
+
 /* ---- Typography ------------------------------------------------------- */
 
 h1, h2, h3 {
@@ -265,7 +311,14 @@ strong { font-weight: 700; }
   color: var(--muted);
 }
 
-.mark { background: var(--mark); padding: 0 0.2em; }
+/* Marker highlight sitting under the baseline, the way a real one would. */
+.mark {
+  background-image: linear-gradient(var(--mark), var(--mark));
+  background-repeat: no-repeat;
+  background-position: 0 88%;
+  background-size: 100% 0.42em;
+  padding-inline: 0.06em;
+}
 
 /* ---- Status line (playful microcopy) ---------------------------------- */
 
@@ -302,9 +355,150 @@ strong { font-weight: 700; }
   gap: var(--s-4);
 }
 
-.eyes { flex: none; width: 76px; color: var(--fg); }
-.eyes .pupil { fill: currentColor; }
-.eyes .lid { fill: none; stroke: currentColor; stroke-width: 1.5; }
+/* ---- The face -------------------------------------------------------- */
+/* Solid hand-drawn shapes rather than outlines. The eyes read as filled
+   almonds; the catchlight inside each one is what follows the cursor. */
+
+.face {
+  width: min(20rem, 62vw);
+  height: auto;
+  margin-inline: auto;
+}
+
+.face--sm { width: min(9rem, 34vw); margin-inline: 0; }
+
+.face-eye { fill: var(--fg); stroke: none; }
+.face-glint { fill: var(--paper); stroke: none; }
+.face-blush { fill: var(--accent); opacity: 0.42; stroke: none; }
+
+.face-nose {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+/* ---- Hero (above the fold) -------------------------------------------- */
+
+.hero {
+  min-height: min(76svh, 44rem);
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-5, var(--s-4));
+  padding-block: var(--s-6) var(--s-8);
+  text-align: center;
+}
+
+.hero-statement {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-mono);
+  font-size: clamp(1.75rem, 0.9rem + 4.2vw, 3.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  width: 100%;
+  max-width: var(--measure-wide);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hero-meta .rule { flex: 1; height: 1px; background: var(--rule); }
+
+.hero-cue {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.hero-cue:hover { color: var(--accent); }
+
+@media (max-width: 34rem) {
+  .hero-meta { flex-direction: column; gap: var(--s-1); }
+  .hero-meta .rule { display: none; }
+}
+
+/* ---- Project tiles (below the fold) ----------------------------------- */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding: var(--s-3);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.tile:hover,
+.tile:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+.tile-num {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.tile-title {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.tile-title a {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+/* The whole tile is the hit target. */
+.tile-title a::after { content: ""; position: absolute; inset: 0; }
+
+.tile-meta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tile-about {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
 
 /* ---- Project entries (homepage) --------------------------------------- */
 
@@ -573,7 +767,9 @@ strong { font-weight: 700; }
 }
 
 .theme-toggle button {
-  font: inherit;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
   color: var(--muted);
   background: none;
   border: 0;

@@ -20,11 +20,18 @@
 <!-- SHARED HEADER — mirrored on every page. grep: site-header -->
 <header class="site-header wrap">
   <a class="wordmark" href="/">Jasmine Xiong</a>
-  <nav class="site-nav" aria-label="Primary">
+  <div class="header-end">
+    <nav class="site-nav" aria-label="Primary">
     <a href="/">work</a>
     <a href="/personal/" aria-current="page">personal</a>
     <a href="/manifesto/">manifesto</a>
   </nav>
+    <div class="theme-toggle" role="group" aria-label="Colour theme">
+      <button type="button" data-theme-set="light">light</button>
+      <button type="button" data-theme-set="dark">dark</button>
+      <button type="button" data-theme-set="auto">auto</button>
+    </div>
+  </div>
 </header>
 
 <main id="main" class="wrap">
@@ -103,14 +110,8 @@
       <a href="https://github.com/jasminejyxiong" rel="me noopener">github</a> ·
       <a href="https://www.linkedin.com/" rel="me noopener">linkedin</a>
     </p>
-    <p class="theme-toggle" style="margin:0">
-      <span>theme:</span>
-      <button type="button" data-theme-set="light">light</button>
-      <button type="button" data-theme-set="dark">dark</button>
-      <button type="button" data-theme-set="auto">auto</button>
-    </p>
+    <p style="margin:0">Set in iA Writer. Drawn by hand. Built in a text editor.</p>
   </div>
-  <p style="margin:var(--s-2) 0 0">Set in iA Writer. Drawn by hand. Built in a text editor.</p>
 </footer>
 
 <script src="/assets/js/theme.js" defer></script>
