@@ -390,15 +390,12 @@ strong { font-weight: 700; }
 :root[data-theme="dark"] .fc-lid { opacity: 0 !important; animation: none !important; }
 :root[data-theme="dark"] .fc-closed { opacity: 1 !important; animation: none !important; }
 :root[data-theme="dark"] .zzz { opacity: 1; }
-/* A sleeping face doesn't smile. */
-:root[data-theme="dark"] .fc-smile { opacity: 0; }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .fc-open,
   :root:not([data-theme="light"]) .fc-lid { opacity: 0 !important; animation: none !important; }
   :root:not([data-theme="light"]) .fc-closed { opacity: 1 !important; animation: none !important; }
   :root:not([data-theme="light"]) .zzz { opacity: 1; }
-  :root:not([data-theme="light"]) .fc-smile { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -976,24 +973,6 @@ strong { font-weight: 700; }
   :root:not([data-theme="light"]) .theme-btn .rays { opacity: 0; }
 }
 
-.theme-toggle button {
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--muted);
-  background: none;
-  border: 0;
-  padding: 2px 4px;
-  cursor: pointer;
-  border-bottom: 1px solid transparent;
-}
-
-.theme-toggle button:hover { color: var(--fg); }
-.theme-toggle button[aria-pressed="true"] {
-  color: var(--fg);
-  border-bottom-color: var(--accent);
-}
 
 /* ---- Focus ------------------------------------------------------------ */
 
