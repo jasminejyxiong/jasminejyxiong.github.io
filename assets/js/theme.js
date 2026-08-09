@@ -20,7 +20,11 @@
     btn.title = dark ? "Turn the lights on" : "Turn the lights off";
   }
 
-  btn.addEventListener("click", function () {
+  btn.addEventListener("click", function (e) {
+    // detail > 0 means a real pointer click — drop focus so the ring doesn't
+    // linger. Keyboard activation reports 0 and keeps its focus ring.
+    if (e.detail > 0) btn.blur();
+
     var next = effective() === "dark" ? "light" : "dark";
     root.dataset.theme = next;
     try { localStorage.setItem("theme", next); } catch (e) {}

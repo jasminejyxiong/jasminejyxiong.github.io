@@ -80,6 +80,7 @@
 
   --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* Soft cream and black, with the red from the face illustration carrying
      the warmth. */
@@ -99,6 +100,7 @@
                color-mix(in oklab, #f0e4da 17%, #14120f));
   --accent:  light-dark(#a83a2e, #e2857b);
   --mark:    light-dark(#e79a90, color-mix(in oklab, #d05a52 62%, #14120f));
+  --eye-white: light-dark(#fffdfa, #1c1a16);
   --blush:   #d05a52;
   --blush-alpha: light-dark(0.85, 0.95);
 
@@ -182,7 +184,7 @@ section { margin-top: var(--s-12); }
 }
 
 /* Black artwork on transparency, so dark mode just inverts it. */
-.wordmark img { width: 1.9em; height: auto; }
+.wordmark img { width: 3.4rem; height: auto; }
 :root[data-theme="dark"] .wordmark img { filter: invert(1); }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .wordmark img { filter: invert(1); }
@@ -352,9 +354,9 @@ strong { font-weight: 700; }
 /* The eyes follow the theme: dark iris on cream in light, cream iris on dark
    in dark. Pinning them to fixed colours instead makes the iris match the
    dark background exactly, and the eyes collapse into crescents. */
-.fc-white { fill: var(--paper); }
+.fc-white { fill: var(--eye-white); }
 .fc-iris  { fill: var(--fg); }
-.fc-spark { fill: var(--paper); }
+.fc-spark { fill: var(--eye-white); }
 .fc-shade { fill: var(--fg); opacity: 0.18; }
 .fc-lid   { fill: var(--fg); }
 .fc-closed { fill: var(--fg); opacity: 0; }
@@ -366,10 +368,11 @@ strong { font-weight: 700; }
   position: absolute;
   top: 4%;
   left: 92%;
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4.2vw, 3rem);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 3.4vw, 2.375rem);
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   color: var(--blush);
   rotate: -10deg;
   opacity: 0;
@@ -957,7 +960,7 @@ strong { font-weight: 700; }
   background: none;
   color: var(--muted);
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 4px;
   transition: color var(--dur) var(--ease);
 }
 
