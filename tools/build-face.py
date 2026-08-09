@@ -43,7 +43,7 @@ nose = paths("nose.svg")
 smile = paths("smile.svg")
 closed = {"l": paths("Left-close.svg")[0], "r": paths("right-close.svg")[0]}
 bubble_full = paths("bubble-full.svg")[0]   # 41x24
-bubble_pop = paths("bubble-pop.svg")[0]     # 36x36
+bubble_pop = paths("bubble-pop.svg")[0]     # 35x35
 
 CLOSE_X, CLOSE_Y = 3, 11   # centres the 92x33 lash curve on the 98x53 eye
 BUBBLE = 1.7                # how much bigger than the 41x24 export
@@ -85,7 +85,7 @@ def cheek(cx, cy, w, flip=False):
     6KB and keeps the real pencil character. It can't recolour with the theme,
     which is fine for a blush mark.
     """
-    h = w * 427 / 477                    # native 477x427
+    h = w * 554 / 597                    # native 597x554
     x, y = cx - w / 2, cy - h / 2
     t = f' transform="translate({2 * cx:.0f} 0) scale(-1 1)"' if flip else ""
     return (f'<image class="fc-cheek" href="/assets/img/cheek.png" '
@@ -124,7 +124,7 @@ parts = [
     f'      <g class="fc-bubble"><g transform="scale({BUBBLE}) translate(-41 -12)"><path d="{bubble_full}"/></g></g>',
     '    </g>',
     f'    <g transform="translate({CENTRE - 6 - 41 * BUBBLE / 2:.0f} 66)">',
-    f'      <g class="fc-pop"><g transform="scale({POP:.2f}) translate(-18 -18)"><path d="{bubble_pop}"/></g></g>',
+    f'      <g class="fc-pop"><g transform="scale({POP:.2f}) translate(-17.5 -17.5)"><path d="{bubble_pop}"/></g></g>',
     '    </g>',
     # Invisible hit target — the bubble is an awkward shape to click. Only
     # accepts pointer events once the bubble is full.
