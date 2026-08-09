@@ -46,6 +46,7 @@ bubble_full = paths("bubble-full.svg")[0]   # 41x24
 bubble_pop = paths("bubble-pop.svg")[0]     # 36x36
 
 CLOSE_X, CLOSE_Y = 3, 11   # centres the 92x33 lash curve on the 98x53 eye
+BUBBLE = 1.7                # how much bigger than the 41x24 export
 
 
 def eye(p, side, dx, dy):
@@ -116,12 +117,17 @@ parts = [
     # fill-box did not hold on a <g>, and the bubble shrank to its own corner
     # instead of into the nostril.
     '  <g class="fc-snore">',
-    f'    <g transform="translate({CENTRE - 6:.0f} 62)">',
-    f'      <g class="fc-bubble"><g transform="translate(-41 -12)"><path d="{bubble_full}"/></g></g>',
+    # BUBBLE scales the 41x24 artwork up; the anchor stays at the nostril
+    # because the scale is applied before the offset.
+    f'    <g transform="translate({CENTRE - 6:.0f} 66)">',
+    f'      <g class="fc-bubble"><g transform="scale({BUBBLE}) translate(-41 -12)"><path d="{bubble_full}"/></g></g>',
     '    </g>',
-    f'    <g transform="translate({CENTRE - 27:.0f} 62)">',
-    f'      <g class="fc-pop"><g transform="translate(-18 -18)"><path d="{bubble_pop}"/></g></g>',
+    f'    <g transform="translate({CENTRE - 6 - 41 * BUBBLE / 2:.0f} 66)">',
+    f'      <g class="fc-pop"><g transform="scale({BUBBLE}) translate(-18 -18)"><path d="{bubble_pop}"/></g></g>',
     '    </g>',
+    # Invisible hit target — the bubble is an awkward shape to click. Only
+    # accepts pointer events once the bubble is full.
+    f'    <circle class="fc-hit" cx="{CENTRE - 6 - 41 * BUBBLE / 2:.0f}" cy="66" r="{24 * BUBBLE:.0f}" fill="transparent"/>',
     '  </g>',
     '</svg>',
 ]

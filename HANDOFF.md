@@ -173,10 +173,24 @@ Things that are load-bearing:
 
 ### Dark mode = asleep
 
-Lights off puts the face to sleep: eyes stay shut, blinking stops, and the
-snore bubble inflates from the nostril and pops on a loop. Driven by
-`:root[data-theme="dark"]` plus a `prefers-color-scheme` fallback for when no
-explicit choice has been stored.
+Lights off puts the face to sleep: eyes stay shut, blinking stops, and a snore
+bubble inflates from the nostril. Driven by `:root[data-theme="dark"]` plus a
+`prefers-color-scheme` fallback for when no explicit choice has been stored.
+
+**The bubble is click-to-pop** (`assets/js/snore.js`). It inflates over ~3.2s,
+then waits at full size with a faint idle pulse. Clicking bursts it
+immediately; if nobody clicks it pops on its own after ~5.2s, so a full bubble
+parked on the face never reads as stuck. CSS holds the states
+(`.is-inflating` / `.is-full` / `.is-popping`), JS only sequences them.
+
+- `.face` is `pointer-events: none` and an invisible `.fc-hit` circle takes
+  the click, but only while `.is-full` — otherwise the face would swallow
+  pointer events for the whole hero.
+- `BUBBLE` in `tools/build-face.py` scales the 41×24 export up (currently
+  1.7×). The scale is applied *before* the offset, so the anchor stays pinned
+  to the nostril however big it gets.
+- It stops when the lights go on, watched via a `MutationObserver` on
+  `data-theme` plus the `prefers-color-scheme` listener.
 
 ---
 
