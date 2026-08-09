@@ -342,38 +342,30 @@ strong { font-weight: 700; }
 .fc-spark { fill: var(--paper); }
 .fc-shade { fill: var(--fg); opacity: 0.18; }
 .fc-lid   { fill: var(--fg); }
+.fc-closed { fill: var(--fg); opacity: 0; }
 .fc-cheek { opacity: var(--blush-alpha); }
 
-/* Speckle over the iris — light noise screened onto the dark fill. */
-.fc-grain {
-  opacity: 0.3;
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
 .fc-line  { fill: var(--blush); }
 
 /* Blink. Scaling the eye group is enough — the cheeks, nose and smile sit
    outside it, so they stay put. */
 @media (prefers-reduced-motion: no-preference) {
-  /* Real eyelids change shape rather than squashing, so the open eye is
-     hidden outright for two frames and the lid curve drops to meet the
-     centre of the eye. Held on steps() so the frames read as drawn cels. */
-  .fc-open {
-    animation: blink-open 6.8s steps(1) infinite;
-  }
-
-  .fc-lid {
-    animation: blink-lid 6.8s var(--ease) infinite;
-  }
+  /* A real blink swaps cels rather than squashing: the open eye and its lash
+     line cut out, Jasmine's drawn closed curve cuts in. The 0.1% steps make
+     each swap instant — roughly 170ms shut, which is about life-sized. */
+  .fc-open, .fc-lid { animation: blink-open 6.8s linear infinite; }
+  .fc-closed { animation: blink-closed 6.8s linear infinite; }
 
   @keyframes blink-open {
-    0%, 93.4%, 96.4%, 100% { opacity: 1; }
-    93.8%, 96% { opacity: 0; }
+    0%, 93.5% { opacity: 1; }
+    93.6%, 96.2% { opacity: 0; }
+    96.3%, 100% { opacity: 1; }
   }
 
-  @keyframes blink-lid {
-    0%, 93%, 96.8%, 100% { transform: translateY(0) scaleY(1); }
-    94.2%, 95.6% { transform: translateY(13px) scaleY(0.82); }
+  @keyframes blink-closed {
+    0%, 93.5% { opacity: 0; }
+    93.6%, 96.2% { opacity: 1; }
+    96.3%, 100% { opacity: 0; }
   }
 }
 
