@@ -20,7 +20,7 @@
   }
 
   function setState(name) {
-    snore.classList.remove("is-inflating", "is-full", "is-popping");
+    snore.classList.remove("is-reset", "is-inflating", "is-full", "is-popping");
     if (name) snore.classList.add(name);
   }
 
@@ -40,7 +40,11 @@
   function cycle() {
     if (!isDark() || !motionOK.matches) return stop();
 
+    // Snap back to nothing untransitioned, then let the next frame inflate.
+    setState("is-reset");
+    snore.getBoundingClientRect();
     setState("is-inflating");
+
     timer = setTimeout(function () {
       setState("is-full");
       // Unclicked bubbles still pop, just later.

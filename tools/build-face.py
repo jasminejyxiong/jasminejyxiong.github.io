@@ -47,6 +47,7 @@ bubble_pop = paths("bubble-pop.svg")[0]     # 36x36
 
 CLOSE_X, CLOSE_Y = 3, 11   # centres the 92x33 lash curve on the 98x53 eye
 BUBBLE = 1.7                # how much bigger than the 41x24 export
+POP = BUBBLE * 0.68         # the burst reads better smaller than the bubble
 
 
 def eye(p, side, dx, dy):
@@ -123,7 +124,7 @@ parts = [
     f'      <g class="fc-bubble"><g transform="scale({BUBBLE}) translate(-41 -12)"><path d="{bubble_full}"/></g></g>',
     '    </g>',
     f'    <g transform="translate({CENTRE - 6 - 41 * BUBBLE / 2:.0f} 66)">',
-    f'      <g class="fc-pop"><g transform="scale({BUBBLE}) translate(-18 -18)"><path d="{bubble_pop}"/></g></g>',
+    f'      <g class="fc-pop"><g transform="scale({POP:.2f}) translate(-18 -18)"><path d="{bubble_pop}"/></g></g>',
     '    </g>',
     # Invisible hit target — the bubble is an awkward shape to click. Only
     # accepts pointer events once the bubble is full.
