@@ -1,13 +1,12 @@
-// Theme toggle: light / dark.
+// Lights on / lights off.
 //
-// With no stored choice the site follows the system, and the toggle shows
-// whichever theme is currently in effect. Clicking either button makes that
-// choice explicit and sticky. The initial read happens in a blocking inline
-// script in <head>; this only wires up the buttons.
+// With no stored choice the site follows the system. Clicking flips to the
+// opposite of whatever is currently showing and makes it sticky. The initial
+// read happens in a blocking inline script in <head>; this wires the button.
 (function () {
   var root = document.documentElement;
-  var buttons = document.querySelectorAll("[data-theme-set]");
-  if (!buttons.length) return;
+  var btn = document.querySelector("[data-theme-toggle]");
+  if (!btn) return;
 
   var media = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -16,21 +15,19 @@
   }
 
   function sync() {
-    var current = effective();
-    buttons.forEach(function (b) {
-      b.setAttribute("aria-pressed", String(b.dataset.themeSet === current));
-    });
+    var dark = effective() === "dark";
+    btn.setAttribute("aria-pressed", String(dark));
+    btn.title = dark ? "Turn the lights on" : "Turn the lights off";
   }
 
-  buttons.forEach(function (b) {
-    b.addEventListener("click", function () {
-      root.dataset.theme = b.dataset.themeSet;
-      try { localStorage.setItem("theme", b.dataset.themeSet); } catch (e) {}
-      sync();
-    });
+  btn.addEventListener("click", function () {
+    var next = effective() === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    sync();
   });
 
-  // Keep the indicator honest if the system flips while we're following it.
+  // Follow the system while no explicit choice has been made.
   media.addEventListener("change", sync);
 
   sync();

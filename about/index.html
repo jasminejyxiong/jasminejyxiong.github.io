@@ -18,16 +18,22 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- SHARED HEADER — mirrored on every page. grep: site-header -->
-<header class="site-header wrap">
-  <a class="wordmark" href="/">Jasmine Xiong</a>
+<header class="site-header wrap wrap--wide">
+  <a class="wordmark" href="/"><img src="/assets/img/jx-logo.png" alt="" width="38" height="38">Jasmine Xiong</a>
   <div class="header-end">
     <nav class="site-nav" aria-label="Primary">
       <a href="/">work</a>
       <a href="/about/" aria-current="page">about me</a>
+      <a href="/play/">a little game</a>
     </nav>
-    <div class="theme-toggle" role="group" aria-label="Colour theme">
-      <button type="button" data-theme-set="light">light</button>
-      <button type="button" data-theme-set="dark">dark</button>
+    <div class="theme-toggle">
+      <button class="theme-btn" type="button" data-theme-toggle aria-label="Turn the lights on or off">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <g class="rays"><path d="M12 1v1.6M4.6 4.6l1.1 1.1M19.4 4.6l-1.1 1.1M1.4 12H3M21 12h1.6"/></g>
+          <path d="M12 4.6a5.6 5.6 0 0 0-3.3 10.1c.5.4.8 1 .8 1.6v.6h5v-.6c0-.6.3-1.2.8-1.6A5.6 5.6 0 0 0 12 4.6z"/>
+          <path d="M9.7 19.2h4.6M10.7 21.4h2.6"/>
+        </svg>
+      </button>
     </div>
   </div>
 </header>
@@ -128,19 +134,11 @@
     </ul>
   </section>
 
-  <section aria-labelledby="game-heading">
-    <h2 class="section-rule" id="game-heading">A small game</h2>
-    <p>
-      There's going to be something to play here. I haven't decided what yet,
-      which is the most honest thing on this page.
-    </p>
-    <p><a href="/play/">Look at the empty room anyway →</a></p>
-  </section>
 
 </main>
 
 <!-- SHARED FOOTER — mirrored on every page. grep: site-footer -->
-<footer class="site-footer wrap">
+<footer class="site-footer wrap wrap--wide">
   <div class="footer-row">
     <p style="margin:0">
       <a href="mailto:jasminex0226@gmail.com">email</a> ·

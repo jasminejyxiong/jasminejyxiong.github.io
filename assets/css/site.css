@@ -72,23 +72,23 @@
   --gutter: var(--s-3);
 
   --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
 
   /* Soft cream and black, with the red from the face illustration carrying
      the warmth. */
-  --cream: #e4caba;
+  --cream: #e8dec9;
   --ink:   #14120f;
   --red:   #d05a52;
 
-  --bg:      light-dark(#e4caba, #14120f);
+  --bg:      light-dark(#e8dec9, #14120f);
   --fg:      light-dark(#14120f, #f0e4da);
   /* Cards lift off the ground rather than glaring white against it. */
-  --paper:   light-dark(#eeddd1, #1c1a16);
+  --paper:   light-dark(#f2ebdb, #1c1a16);
   --muted:   light-dark(
-               color-mix(in oklab, #14120f 55%, #e4caba),
+               color-mix(in oklab, #14120f 55%, #e8dec9),
                color-mix(in oklab, #f0e4da 52%, #14120f));
   --rule:    light-dark(
-               color-mix(in oklab, #14120f 20%, #e4caba),
+               color-mix(in oklab, #14120f 20%, #e8dec9),
                color-mix(in oklab, #f0e4da 17%, #14120f));
   --accent:  light-dark(#a83a2e, #e2857b);
   --mark:    light-dark(#e79a90, color-mix(in oklab, #d05a52 62%, #14120f));
@@ -135,7 +135,18 @@ img, video { height: auto; }
 
 .wrap--wide { max-width: var(--measure-wide); }
 
+/* Every page uses the same outer column so the frame never jumps between
+   Work and About; prose is constrained separately for readability. */
+main.wrap { max-width: var(--measure-wide); }
 main { padding-bottom: var(--s-16); }
+
+main :is(p, h1, h2, h3, .lede, .entries, .note, .cs-outcome, .eyebrow, .meta) {
+  max-width: var(--measure);
+}
+
+/* The nameplate is an h1 but is meant to run the full width. */
+main .nameplate,
+main .hero-typing { max-width: none; }
 
 section { margin-top: var(--s-12); }
 
@@ -152,6 +163,9 @@ section { margin-top: var(--s-12); }
 
 .wordmark {
   view-transition-name: wordmark;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
   font-family: var(--font-display);
   font-size: 1.0625rem;
   letter-spacing: 0.005em;
@@ -160,15 +174,11 @@ section { margin-top: var(--s-12); }
   white-space: nowrap;
 }
 
-.wordmark::before {
-  content: "";
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin-right: 0.55em;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  transform: rotate(45deg) translateY(-1px);
+/* Black artwork on transparency, so dark mode just inverts it. */
+.wordmark img { width: 1.9em; height: auto; }
+:root[data-theme="dark"] .wordmark img { filter: invert(1); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .wordmark img { filter: invert(1); }
 }
 
 .site-nav {
@@ -341,29 +351,57 @@ strong { font-weight: 700; }
 .fc-shade { fill: var(--fg); opacity: 0.18; }
 .fc-lid   { fill: var(--fg); }
 .fc-closed { fill: var(--fg); opacity: 0; }
+
+/* zzz — hidden by default, shown while the lights are off. */
+.fc-zzz { opacity: 0; transition: opacity 320ms var(--ease); }
+.fc-z { fill: var(--fg); font-family: var(--font-display); }
 .fc-cheek { opacity: var(--blush-alpha); }
 
 .fc-line  { fill: var(--blush); }
 
 /* Blink. Scaling the eye group is enough — the cheeks, nose and smile sit
    outside it, so they stay put. */
+/* Lights off: the face sleeps — eyes stay shut, blinking stops, zzz drift up. */
+:root[data-theme="dark"] .fc-open,
+:root[data-theme="dark"] .fc-lid { opacity: 0 !important; animation: none !important; }
+:root[data-theme="dark"] .fc-closed { opacity: 1 !important; animation: none !important; }
+:root[data-theme="dark"] .fc-zzz { opacity: 1; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .fc-open,
+  :root:not([data-theme="light"]) .fc-lid { opacity: 0 !important; animation: none !important; }
+  :root:not([data-theme="light"]) .fc-closed { opacity: 1 !important; animation: none !important; }
+  :root:not([data-theme="light"]) .fc-zzz { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  .fc-z { animation: drift 3.4s ease-in-out infinite; }
+  .fc-z:nth-child(2) { animation-delay: 0.45s; }
+  .fc-z:nth-child(3) { animation-delay: 0.9s; }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); opacity: 0.35; }
+    50%      { transform: translate(2px, -5px); opacity: 1; }
+  }
+
   /* A blink swaps cels rather than squashing. The two states cross-fade over
      ~55ms and overlap slightly, which reads as a lid travelling rather than a
      hard cut — and the close is quicker than the open, as a real blink is. */
-  .fc-open, .fc-lid { animation: blink-open 6.8s ease-in-out infinite; }
-  .fc-closed { animation: blink-closed 6.8s ease-in-out infinite; }
+  .fc-open, .fc-lid { animation: blink-open 7.2s ease-in-out infinite; }
+  .fc-closed { animation: blink-closed 7.2s ease-in-out infinite; }
 
+  /* ~140ms to close, a beat shut, ~200ms to open — with the two states
+     overlapping throughout so neither ever pops. */
   @keyframes blink-open {
-    0%, 93.2% { opacity: 1; }
-    94%, 95.6% { opacity: 0; }
-    96.8%, 100% { opacity: 1; }
+    0%, 91.5% { opacity: 1; }
+    93.5%, 95.5% { opacity: 0; }
+    98.3%, 100% { opacity: 1; }
   }
 
   @keyframes blink-closed {
-    0%, 93.4% { opacity: 0; }
-    94.2%, 95.4% { opacity: 1; }
-    96.6%, 100% { opacity: 0; }
+    0%, 92% { opacity: 0; }
+    93.8%, 95.2% { opacity: 1; }
+    97.8%, 100% { opacity: 0; }
   }
 }
 
@@ -374,10 +412,10 @@ strong { font-weight: 700; }
 .hero {
   /* Subtract the header, which sits above this, then add back enough that the
      bottom quarter of the name falls past the fold — so scrolling reveals the
-     rest of it rather than the name being cut off. The 19.4vw comes from the
-     nameplate's aspect ratio: it renders at 0.452 x its width, and the fold
+     rest of it rather than the name being cut off. The 9.6vw comes from the
+     nameplate's aspect ratio: it renders at 0.236 x its width, and the fold
      should land three-quarters down the caps. */
-  min-height: calc(100svh - 8rem + 19.4vw);
+  min-height: calc(100svh - 8rem + 9.6vw);
   margin-top: 0;
   display: flex;
   flex-direction: column;
@@ -478,8 +516,8 @@ strong { font-weight: 700; }
 
 .tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-  gap: var(--s-2);
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -496,7 +534,7 @@ strong { font-weight: 700; }
 
 /* Dedicated slot for the project's hero image. */
 .tile-media {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   display: grid;
   place-items: center;
   background: color-mix(in oklab, var(--fg) 8%, var(--paper));
@@ -518,9 +556,9 @@ strong { font-weight: 700; }
 /* Thematic doodle, tucked into the corner and revealed on hover. */
 .tile-doodle {
   position: absolute;
-  top: -20px;
-  right: -16px;
-  width: 78px;
+  top: -30px;
+  right: -24px;
+  width: 118px;
   height: auto;
   color: var(--fg);
   fill: currentColor;
@@ -842,10 +880,32 @@ strong { font-weight: 700; }
   align-items: baseline;
 }
 
-.theme-toggle {
-  display: inline-flex;
-  gap: var(--s-1);
-  align-items: baseline;
+.theme-toggle { display: inline-flex; align-items: center; }
+
+.theme-btn {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: color var(--dur) var(--ease);
+}
+
+.theme-btn:hover { color: var(--fg); }
+.theme-btn svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor;
+                 stroke-width: 1.5; stroke-linecap: round; }
+
+/* Rays on when the lights are on, off when they're off. */
+.theme-btn .rays { opacity: 1; transition: opacity var(--dur) var(--ease); }
+.theme-btn .filament { opacity: 1; }
+:root[data-theme="dark"] .theme-btn .rays { opacity: 0; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-btn .rays { opacity: 0; }
 }
 
 .theme-toggle button {
