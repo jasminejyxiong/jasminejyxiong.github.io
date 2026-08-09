@@ -1,7 +1,8 @@
 /* =========================================================================
    jasminexiong.com
-   Typewriter type, a hand-drawn face, and marginalia.
-   Everything is spaced in multiples of --grid.
+   Two families only: Averia Serif Libre for display, Source Serif 4 for
+   everything else. Labels and buttons get their character from caps and
+   letter-spacing rather than a third face.
    ========================================================================= */
 
 /* ---- Fonts ------------------------------------------------------------ */
@@ -41,13 +42,6 @@
   font-style: normal;
   font-display: swap;
 }
-@font-face {
-  font-family: "iA Writer Mono";
-  src: url("/assets/fonts/mono-regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
 /* ---- Tokens ----------------------------------------------------------- */
 
@@ -71,7 +65,6 @@
   --gutter: var(--s-3);
 
   --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-mono: "iA Writer Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --font-display: "Averia Serif Libre", Georgia, "Times New Roman", serif;
 
   /* Soft cream and black, with the red from the face illustration carrying
@@ -151,9 +144,9 @@ section { margin-top: var(--s-12); }
 
 .wordmark {
   view-transition-name: wordmark;
-  font-family: var(--font-mono);
-  font-size: 0.9375rem;
-  letter-spacing: 0.01em;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  letter-spacing: 0.005em;
   text-decoration: none;
   color: var(--fg);
   white-space: nowrap;
@@ -174,10 +167,10 @@ section { margin-top: var(--s-12); }
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-3);
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  letter-spacing: 0.04em;
-  text-transform: lowercase;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
 }
 
 .site-nav a {
@@ -214,7 +207,7 @@ section { margin-top: var(--s-12); }
 /* ---- Typography ------------------------------------------------------- */
 
 h1, h2, h3 {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-weight: 400;
   letter-spacing: -0.015em;
   text-wrap: balance;
@@ -245,10 +238,10 @@ a:hover { text-decoration: none; }
 
 strong { font-weight: 700; }
 
-/* Eyebrow — the small mono label above a heading. */
+/* Eyebrow — the small label above a heading. */
 .eyebrow {
   margin: 0 0 var(--s-2);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -266,7 +259,7 @@ strong { font-weight: 700; }
   margin: 0 0 var(--s-4);
   padding-bottom: var(--s-1);
   border-bottom: 1px solid var(--rule);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -288,7 +281,7 @@ strong { font-weight: 700; }
   display: inline-flex;
   align-items: baseline;
   gap: 0.5em;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -434,7 +427,7 @@ strong { font-weight: 700; }
 .hero-statement {
   margin: 0;
   max-width: 20ch;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: clamp(1.75rem, 0.9rem + 4.2vw, 3.5rem);
   line-height: 1.15;
   letter-spacing: -0.035em;
@@ -448,7 +441,7 @@ strong { font-weight: 700; }
   width: 100%;
   max-width: var(--measure-wide);
   margin: 0;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -458,7 +451,7 @@ strong { font-weight: 700; }
 .hero-meta .rule { flex: 1; height: 1px; background: var(--rule); }
 
 .hero-cue {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--muted);
@@ -501,7 +494,7 @@ strong { font-weight: 700; }
 }
 
 .tile-num {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   color: var(--accent);
@@ -510,7 +503,7 @@ strong { font-weight: 700; }
 
 .tile-title {
   margin: 0;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 1.0625rem;
   font-weight: 400;
   line-height: 1.35;
@@ -525,7 +518,7 @@ strong { font-weight: 700; }
 .tile-title a::after { content: ""; position: absolute; inset: 0; }
 
 .tile-meta {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.6875rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -554,7 +547,7 @@ strong { font-weight: 700; }
 
 .project-title {
   margin: 0 0 var(--s-1);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.3;
@@ -579,7 +572,7 @@ strong { font-weight: 700; }
   grid-template-columns: 7rem 1fr;
   gap: 0 var(--s-2);
   margin: 0 0 var(--s-2);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.8125rem;
   line-height: 1.85;
 }
@@ -613,7 +606,7 @@ strong { font-weight: 700; }
 .cs-metrics {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--s-4) var(--s-6);
+  gap: var(--s-3) var(--s-4);
   margin: var(--s-4) 0 var(--s-6);
   padding-block: var(--s-3);
   border-block: 1px solid var(--rule);
@@ -621,11 +614,13 @@ strong { font-weight: 700; }
   padding-inline: 0;
 }
 
-.cs-metrics div { min-width: 7rem; }
+/* Let long labels wrap inside their column rather than pushing the strip
+   onto a second row. */
+.cs-metrics div { flex: 1 1 8rem; min-width: 0; }
 
 .cs-metric-value {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 1.75rem;
   line-height: 1.2;
   font-variant-numeric: tabular-nums;
@@ -635,7 +630,7 @@ strong { font-weight: 700; }
 .cs-metric-label {
   display: block;
   margin-top: 2px;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -673,7 +668,7 @@ strong { font-weight: 700; }
   place-items: center;
   min-height: 15rem;
   color: var(--muted);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.8125rem;
   text-align: center;
   background-image: repeating-linear-gradient(
@@ -684,7 +679,7 @@ strong { font-weight: 700; }
   display: flex;
   gap: var(--s-2);
   margin-top: var(--s-2);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.8125rem;
   line-height: 1.6;
   color: var(--muted);
@@ -718,7 +713,7 @@ strong { font-weight: 700; }
   margin-top: var(--s-12);
   padding-top: var(--s-3);
   border-top: 1px solid var(--rule);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.8125rem;
 }
 
@@ -743,7 +738,7 @@ strong { font-weight: 700; }
 
 .entry time {
   margin-left: auto;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
@@ -786,7 +781,7 @@ strong { font-weight: 700; }
   margin-top: var(--s-16);
   padding-block: var(--s-4) var(--s-8);
   border-top: 1px solid var(--rule);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   color: var(--muted);
 }
@@ -806,9 +801,10 @@ strong { font-weight: 700; }
 }
 
 .theme-toggle button {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
   color: var(--muted);
   background: none;
   border: 0;
