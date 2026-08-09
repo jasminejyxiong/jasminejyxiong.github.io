@@ -19,7 +19,7 @@
 
 <!-- SHARED HEADER — mirrored on every page. grep: site-header -->
 <header class="site-header wrap wrap--wide">
-  <a class="wordmark" href="/"><img src="/assets/img/jx-logo.png" alt="" width="38" height="38">Jasmine Xiong</a>
+  <a class="wordmark" href="/" aria-label="Jasmine Xiong — home"><img src="/assets/img/jx-logo.png" alt="" width="38" height="38"></a>
   <div class="header-end">
     <nav class="site-nav" aria-label="Primary">
       <a href="/">work</a>
@@ -135,24 +135,33 @@
   </section>
 
 
+  <section aria-labelledby="connect-heading">
+    <h2 class="section-rule" id="connect-heading">Let's connect</h2>
+    <ul class="contact">
+      <li><a href="https://www.linkedin.com/" rel="me noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM2.8 21h3.4V9.2H2.8V21zM9.2 9.2V21h3.4v-6.2c0-1.7 1.1-2.4 2.1-2.4 1 0 1.8.7 1.8 2.4V21H20v-6.8c0-3.4-1.8-5.2-4.2-5.2-1.6 0-2.6.8-3.1 1.6V9.2H9.2z"/></svg>
+      </a></li>
+      <li><a href="mailto:jasminex0226@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="stroked"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><path d="M3 6.5l9 6.5 9-6.5"/></svg>
+      </a></li>
+      <li><a href="https://github.com/jasminejyxiong" rel="me noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .3.3.7 1 .7 2v2.9c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>
+      </a></li>
+    </ul>
+  </section>
+
 </main>
 
 <!-- SHARED FOOTER — mirrored on every page. grep: site-footer -->
 <footer class="site-footer wrap wrap--wide">
-  <div class="footer-row">
-    <p style="margin:0">
-      <a href="mailto:jasminex0226@gmail.com">email</a> ·
-      <a href="https://github.com/jasminejyxiong" rel="me noopener">github</a> ·
-      <a href="https://www.linkedin.com/" rel="me noopener">linkedin</a>
-    </p>
-    <p style="margin:0">Set in iA Writer. Drawn by hand. Built in a text editor.</p>
-  </div>
+  <p class="colophon"><span class="colophon-text" data-reveal>Designed and built with love · 2026</span><span class="colophon-caret" aria-hidden="true"></span></p>
 </footer>
 
 <script src="/assets/js/theme.js" defer></script>
 <script src="/assets/js/doodles.js" defer></script>
 <script src="/assets/js/eyes.js" defer></script>
 <script src="/assets/js/type.js" defer></script>
+<script src="/assets/js/reveal.js" defer></script>
 
 </body>
 </html>
