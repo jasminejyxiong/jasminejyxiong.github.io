@@ -34,6 +34,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "Young Serif";
+  src: url("/assets/fonts/young-serif.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* Metric-matched fallback so the swap doesn't shift layout. */
 @font-face {
@@ -70,6 +77,7 @@
 
   --font-body: "iA Writer Quattro", "Quattro Fallback", ui-monospace, "SF Mono", Menlo, monospace;
   --font-mono: "iA Writer Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-display: "Young Serif", Georgia, "Times New Roman", serif;
 
   /* Palette drawn from the lily-pond reference. The landing page stays cream
      and near-black: the "black" is dark green, which reads as ink at text
@@ -123,6 +131,10 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
+  /* The nameplate breaks out to full-viewport width. `clip` rather than
+     `hidden` so body doesn't become a scroll container, which would break the
+     position:fixed substrate. */
+  overflow-x: clip;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
@@ -384,36 +396,102 @@ strong { font-weight: 700; }
    almonds; the catchlight inside each one is what follows the cursor. */
 
 .face {
-  width: min(20rem, 62vw);
+  width: min(26rem, 74vw);
   height: auto;
   margin-inline: auto;
 }
 
-.face--sm { width: min(9rem, 34vw); margin-inline: 0; }
+.face--sm { width: min(11rem, 40vw); margin-inline: 0; }
 
-.face-eye { fill: var(--fg); stroke: none; }
-.face-glint { fill: var(--paper); stroke: none; }
-.face-blush { fill: var(--blush); opacity: var(--blush-alpha); stroke: none; }
+/* Jasmine's exported parts. Fills are stripped in the source and assigned
+   here so the whole face inverts with the theme. */
+/* The eyes follow the theme: dark iris on cream in light, cream iris on dark
+   in dark. Pinning them to fixed colours instead makes the iris match the
+   dark background exactly, and the eyes collapse into crescents. */
+.fc-white { fill: var(--paper); }
+.fc-iris  { fill: var(--fg); }
+.fc-spark { fill: var(--paper); }
+.fc-shade { fill: var(--fg); opacity: 0.18; }
+.fc-lid   { fill: var(--fg); }
+.fc-cheek { fill: var(--blush); opacity: var(--blush-alpha); }
+.fc-line  { fill: var(--blush); }
 
-.face-nose {
-  fill: none;
-  stroke: var(--blush);
-  stroke-width: 2.6;
-  stroke-linecap: round;
+/* Blink. Scaling the eye group is enough — the cheeks, nose and smile sit
+   outside it, so they stay put. */
+@media (prefers-reduced-motion: no-preference) {
+  .fc-blink {
+    transform-box: fill-box;
+    transform-origin: 50% 64%;
+    animation: blink 6.5s var(--ease) infinite;
+  }
+
+  @keyframes blink {
+    0%, 92.5%, 100% { transform: scaleY(1); }
+    95% { transform: scaleY(0.06); }
+  }
 }
 
 /* ---- Hero (above the fold) -------------------------------------------- */
 
+/* Two beats above the fold: the face up top, the typing line in the middle,
+   and the name filling the bottom edge. */
 .hero {
-  min-height: min(76svh, 44rem);
+  min-height: 100svh;
   margin-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: var(--s-5, var(--s-4));
-  padding-block: var(--s-6) var(--s-8);
+  justify-content: space-between;
+  gap: var(--s-6);
+  padding-block: var(--s-4) 0;
   text-align: center;
+}
+
+.hero-typing {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(1.0625rem, 0.8rem + 1.4vw, 1.75rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.typed { color: var(--accent); }
+
+.caret {
+  display: inline-block;
+  width: 0.07em;
+  height: 1.05em;
+  translate: 0 0.16em;
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .caret { animation: caret 1.05s steps(1) infinite; }
+  @keyframes caret { 50% { opacity: 0; } }
+}
+
+/* The name spans the full viewport, breaking out of the content column.
+   Drawn as SVG text with textLength so it fits its box exactly at any width
+   rather than guessing a vw size and overflowing. */
+.nameplate {
+  margin: 0;
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding-inline: var(--s-3);
+  translate: 0 3%;
+}
+
+.nameplate svg { display: block; width: 100%; height: auto; }
+.nameplate text { font-family: var(--font-display); fill: var(--fg); }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 .hero-statement {
