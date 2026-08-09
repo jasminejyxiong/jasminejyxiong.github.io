@@ -4,6 +4,10 @@ Personal site. Static HTML and CSS, no build step. Deploy is `git push`.
 
 Served by GitHub Pages from `main` at the repo root, via the `CNAME` file.
 
+**New here? Read [HANDOFF.md](HANDOFF.md) first** — it covers the outstanding
+DNS switch, the two-GitHub-account trap, how the face is generated, and the
+decisions that aren't obvious from the code.
+
 ## Preview locally
 
 ```bash
@@ -26,8 +30,8 @@ reproduces the directory-URL behaviour that GitHub Pages uses.
 - **The header and footer are duplicated** in every page rather than injected
   by JavaScript (which would break the view transitions). If you change one,
   change all — `grep -rl site-header .`
-- `/work/lumos-lifecycle/index.html` is the canonical case study. Copy it to
-  start a new one.
+- `/work/employee-lifecycle-mover/index.html` is the canonical case study.
+  Copy it to start a new one.
 
 ## Adding images to a case study
 
@@ -70,6 +74,8 @@ For motion, use a muted looping MP4, never a GIF:
 |---|---|
 | `assets/css/site.css` | All styling. Tokens at the top. |
 | `assets/js/theme.js` | Light/dark toggle |
+| `tools/build-face.py` | Rebuilds the face from ~/Desktop/Face |
+| `tools/inject-face.py` | Injects the face into the pages that show it |
 | `assets/js/doodles.js` | Draw-on animation for inline SVG |
 | `assets/js/eyes.js` | Cursor-following eyes |
 | `assets/fonts/` | iA Writer Quattro + Mono, SIL OFL 1.1 |
