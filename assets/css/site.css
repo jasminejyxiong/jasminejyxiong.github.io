@@ -144,6 +144,15 @@ main :is(p, h1, h2, h3, .lede, .entries, .note, .cs-outcome, .eyebrow, .meta) {
 main .nameplate,
 main .hero-typing { max-width: none; }
 
+/* The work grid gets a wider column than the reading measure, so two tiles
+   fit per row without shrinking the hero images. */
+#work {
+  width: min(76rem, 100vw - 3rem);
+  margin-inline: calc(50% - min(38rem, 50vw - 1.5rem));
+}
+
+#work .section-rule { max-width: none; }
+
 section { margin-top: var(--s-12); }
 
 /* ---- Header ----------------------------------------------------------- */
@@ -354,16 +363,10 @@ strong { font-weight: 700; }
 .fc-snore { opacity: 0; transition: opacity 320ms var(--ease); }
 .fc-bubble path, .fc-pop path { fill: var(--snore); }
 
-.fc-bubble {
-  transform-box: fill-box;
-  transform-origin: 100% 55%;
-}
-
-.fc-pop {
-  transform-box: fill-box;
-  transform-origin: 50% 50%;
-  opacity: 0;
-}
+/* Origin 0 0 is the group's own local origin — parked at the nostril by the
+   parent translate — so the bubble grows out of the nose. */
+.fc-bubble { transform-origin: 0 0; }
+.fc-pop { transform-origin: 0 0; opacity: 0; }
 .fc-cheek { opacity: var(--blush-alpha); }
 
 .fc-line  { fill: var(--blush); }
@@ -536,8 +539,8 @@ strong { font-weight: 700; }
 
 .tiles {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--s-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-6) var(--s-4);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -554,7 +557,7 @@ strong { font-weight: 700; }
 
 /* Dedicated slot for the project's hero image. */
 .tile-media {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   display: grid;
   place-items: center;
   background: color-mix(in oklab, var(--fg) 8%, var(--paper));
@@ -693,6 +696,11 @@ strong { font-weight: 700; }
 .meta dd { margin: 0; color: var(--fg); }
 
 .project-about { margin: 0; color: var(--muted); }
+
+@media (max-width: 62rem) {
+  .tiles { grid-template-columns: 1fr; }
+  .tile-doodle { width: 130px; top: -40px; right: -34px; }
+}
 
 @media (max-width: 30rem) {
   .meta { grid-template-columns: 1fr; gap: 0; }
