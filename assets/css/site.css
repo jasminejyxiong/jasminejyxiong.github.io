@@ -29,20 +29,6 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "Instrument Serif";
-  src: url("/assets/fonts/instrument-serif.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "DM Serif Display";
-  src: url("/assets/fonts/dm-serif-display.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
   font-family: "Playfair Display";
   src: url("/assets/fonts/playfair-regular.woff2") format("woff2");
   font-weight: 400;
@@ -79,7 +65,7 @@
   --gutter: var(--s-3);
 
   --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
   /* Soft cream and black, with the red from the face illustration carrying
@@ -432,10 +418,10 @@ strong { font-weight: 700; }
 .hero {
   /* Subtract the header, which sits above this, then add back enough that the
      bottom quarter of the name falls past the fold — so scrolling reveals the
-     rest of it rather than the name being cut off. The 16.2vw comes from the
-     nameplate's aspect ratio: it renders at 0.37 x its width, and the fold
+     rest of it rather than the name being cut off. The 9.6vw comes from the
+     nameplate's aspect ratio: it renders at 0.236 x its width, and the fold
      should land three-quarters down the caps. */
-  min-height: calc(100svh - 8rem + 16.2vw);
+  min-height: calc(100svh - 8rem + 9.6vw);
   margin-top: 0;
   display: flex;
   flex-direction: column;
