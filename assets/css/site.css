@@ -79,42 +79,38 @@
   --font-mono: "iA Writer Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --font-display: "Young Serif", Georgia, "Times New Roman", serif;
 
-  /* Palette drawn from the lily-pond reference. The landing page stays cream
-     and near-black: the "black" is dark green, which reads as ink at text
-     size but keeps the whole page in one family. Moss, midnight green and
-     rosy brown do the accent work. */
-  --beige:    #f7f4d5;
-  --dark-green: #0a3323;
-  --moss:     #839958;
-  --midnight: #105666;
-  --rosy:     #d3968c;
+  /* Soft cream and black, with the red from the face illustration carrying
+     the warmth. */
+  --cream: #f7f3e9;
+  --ink:   #14120f;
+  --red:   #d05a52;
 
-  --bg:      light-dark(#f7f4d5, #0a3323);
-  --fg:      light-dark(#0a3323, #f7f4d5);
-  --paper:   light-dark(#fdfbe8, #0d3d2b);
+  --bg:      light-dark(#f7f3e9, #14120f);
+  --fg:      light-dark(#14120f, #f2ede2);
+  --paper:   light-dark(#fffdf7, #1c1a16);
   --muted:   light-dark(
-               color-mix(in oklab, #0a3323 58%, #f7f4d5),
-               color-mix(in oklab, #839958 82%, #f7f4d5));
+               color-mix(in oklab, #14120f 52%, #f7f3e9),
+               color-mix(in oklab, #f2ede2 52%, #14120f));
   --rule:    light-dark(
-               color-mix(in oklab, #0a3323 16%, #f7f4d5),
-               color-mix(in oklab, #f7f4d5 16%, #0a3323));
-  --accent:  light-dark(#105666, #d3968c);
-  --mark:    light-dark(#d3968c, color-mix(in oklab, #d3968c 78%, #0a3323));
-  --blush:   #d3968c;
-  --blush-alpha: light-dark(0.8, 1);
+               color-mix(in oklab, #14120f 15%, #f7f3e9),
+               color-mix(in oklab, #f2ede2 17%, #14120f));
+  --accent:  light-dark(#b8483c, #e2857b);
+  --mark:    light-dark(#eeb0a8, color-mix(in oklab, #d05a52 62%, #14120f));
+  --blush:   #d05a52;
+  --blush-alpha: light-dark(0.85, 0.95);
 
   /* The grid is paper texture, not furniture — it should be felt more than
      seen. Thin light lines on dark read fainter than dark on light, so dark
      gets a nudge. light-dark() rather than a media query, so the manual theme
      toggle is honoured too. */
   --grid-ink: light-dark(
-    color-mix(in oklab, #0a3323 8%, transparent),
-    color-mix(in oklab, #f7f4d5 8%, transparent));
+    color-mix(in oklab, #14120f 7%, transparent),
+    color-mix(in oklab, #f2ede2 8%, transparent));
   /* The two structural rules that frame the page — these carry the "grid"
      idea deliberately, so the substrate doesn't have to shout. */
   --rule-frame: light-dark(
-    color-mix(in oklab, #0a3323 15%, transparent),
-    color-mix(in oklab, #f7f4d5 15%, transparent));
+    color-mix(in oklab, #14120f 14%, transparent),
+    color-mix(in oklab, #f2ede2 15%, transparent));
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --dur: 200ms;
@@ -413,21 +409,37 @@ strong { font-weight: 700; }
 .fc-spark { fill: var(--paper); }
 .fc-shade { fill: var(--fg); opacity: 0.18; }
 .fc-lid   { fill: var(--fg); }
-.fc-cheek { fill: var(--blush); opacity: var(--blush-alpha); }
+.fc-cheek {
+  fill: none;
+  stroke: var(--blush);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  opacity: calc(var(--blush-alpha) * 0.55);
+}
 .fc-line  { fill: var(--blush); }
 
 /* Blink. Scaling the eye group is enough — the cheeks, nose and smile sit
    outside it, so they stay put. */
 @media (prefers-reduced-motion: no-preference) {
-  .fc-blink {
-    transform-box: fill-box;
-    transform-origin: 50% 64%;
-    animation: blink 6.5s var(--ease) infinite;
+  /* Real eyelids change shape rather than squashing, so the open eye is
+     hidden outright for two frames and the lid curve drops to meet the
+     centre of the eye. Held on steps() so the frames read as drawn cels. */
+  .fc-open {
+    animation: blink-open 6.8s steps(1) infinite;
   }
 
-  @keyframes blink {
-    0%, 92.5%, 100% { transform: scaleY(1); }
-    95% { transform: scaleY(0.06); }
+  .fc-lid {
+    animation: blink-lid 6.8s var(--ease) infinite;
+  }
+
+  @keyframes blink-open {
+    0%, 93.4%, 96.4%, 100% { opacity: 1; }
+    93.8%, 96% { opacity: 0; }
+  }
+
+  @keyframes blink-lid {
+    0%, 93%, 96.8%, 100% { transform: translateY(0) scaleY(1); }
+    94.2%, 95.6% { transform: translateY(13px) scaleY(0.82); }
   }
 }
 
