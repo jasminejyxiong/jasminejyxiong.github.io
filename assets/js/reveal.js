@@ -1,5 +1,5 @@
-// Types the footer colophon out when it scrolls into view, with a caret at the
-// edge — the same idea as the hero line, but it runs once.
+// The footer colophon types itself out, holds, erases, and starts again —
+// a loop rather than a one-shot, with the caret sitting at the edge.
 (function () {
   var el = document.querySelector("[data-reveal]");
   if (!el) return;
@@ -13,24 +13,38 @@
     return;
   }
 
+  var TYPE = 46, ERASE = 26, HOLD_FULL = 2600, HOLD_EMPTY = 700;
+  var i = 0, erasing = false, running = false;
+
   el.textContent = "";
-  var i = 0;
 
   function tick() {
+    if (erasing) {
+      el.textContent = full.slice(0, --i);
+      if (i <= 0) {
+        erasing = false;
+        return setTimeout(tick, HOLD_EMPTY);
+      }
+      return setTimeout(tick, ERASE);
+    }
+
     el.textContent = full.slice(0, ++i);
-    if (i < full.length) return setTimeout(tick, 34);
-    line.classList.remove("is-typing");
-    line.classList.add("is-done");
+    if (i >= full.length) {
+      erasing = true;
+      return setTimeout(tick, HOLD_FULL);
+    }
+    setTimeout(tick, TYPE);
   }
 
+  // Only run while it's actually on screen — no invisible loop burning frames.
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      io.unobserve(e.target);
+      if (!e.isIntersecting || running) return;
+      running = true;
       line.classList.add("is-typing");
-      setTimeout(tick, 220);
+      setTimeout(tick, 260);
     });
-  }, { threshold: 0.9 });
+  }, { threshold: 0.6 });
 
   io.observe(line);
 })();
