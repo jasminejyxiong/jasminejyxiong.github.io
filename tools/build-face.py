@@ -56,7 +56,7 @@ def eye(p, side, dx, dy):
     """
     sclera, iris, shade, sp1, sp2, lid = p
     cid = f"clip-{side}"
-    return f'''    <g class="fc-eye" data-eye data-travel="7" transform="translate({dx} {dy})">
+    return f'''    <g class="fc-eye" data-eye data-travel-x="19" data-travel-y="7" transform="translate({dx} {dy})">
       <clipPath id="{cid}"><path d="{sclera}"/></clipPath>
       <g class="fc-open">
         <path class="fc-white" d="{sclera}"/>

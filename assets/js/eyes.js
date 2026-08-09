@@ -9,9 +9,28 @@
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   if (!window.matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
 
-  var REACH = 320;    // px at which the catchlight is fully deflected
+  // Horizontal and vertical are handled separately: an eye is far wider than
+  // it is tall, so a single circular clamp made the pupils barely move
+  // sideways. Reach is how far the cursor travels before the pupil is at its
+  // limit — shorter across, so looking left or right pins fully to that side.
+  var REACH_X = 420, REACH_Y = 300;
+
+  // The whole face drifts a little too, so it reads as the head turning
+  // rather than eyeballs rolling in a fixed mask. Kept far smaller than the
+  // pupil travel, and it lags slightly (see the transition on .face), which
+  // is what sells it.
+  var FACE_X = 5, FACE_Y = 2.5;
+
+  var faces = document.querySelectorAll(".face");
   var pointer = null;
   var queued = false;
+
+  // Ease toward the extremes: most of the travel happens early, so a small
+  // sideways move already reads as a proper glance.
+  function curve(n) {
+    var clamped = Math.max(-1, Math.min(1, n));
+    return Math.sign(clamped) * Math.pow(Math.abs(clamped), 0.62);
+  }
 
   function render() {
     queued = false;
@@ -24,18 +43,28 @@
       var box = eye.getBoundingClientRect();
       if (!box.width) return;
 
-      var dx = pointer.x - (box.left + box.width / 2);
-      var dy = pointer.y - (box.top + box.height / 2);
-      // Travel is in SVG user units, so it comes from the markup rather than
-      // being hard-coded — the face and the small face use different viewBoxes.
-      var max = parseFloat(eye.dataset.travel) || 4.2;
-      var dist = Math.hypot(dx, dy) || 1;
-      var pull = Math.min(dist / REACH, 1) * max;
+      // Travel is in SVG user units and comes from the markup, since the face
+      // and the small face use different viewBoxes.
+      var maxX = parseFloat(eye.dataset.travelX) || parseFloat(eye.dataset.travel) || 7;
+      var maxY = parseFloat(eye.dataset.travelY) || parseFloat(eye.dataset.travel) || 7;
 
-      pupil.setAttribute(
-        "transform",
-        "translate(" + ((dx / dist) * pull).toFixed(2) + " " + ((dy / dist) * pull).toFixed(2) + ")"
-      );
+      var dx = curve((pointer.x - (box.left + box.width / 2)) / REACH_X) * maxX;
+      var dy = curve((pointer.y - (box.top + box.height / 2)) / REACH_Y) * maxY;
+
+      pupil.setAttribute("transform", "translate(" + dx.toFixed(2) + " " + dy.toFixed(2) + ")");
+    });
+
+    faces.forEach(function (face) {
+      var box = face.getBoundingClientRect();
+      if (!box.width || !face.viewBox || !face.viewBox.baseVal.width) return;
+
+      // Shift is authored in SVG units, so convert to px at the rendered size.
+      var unit = box.width / face.viewBox.baseVal.width;
+      var nx = curve((pointer.x - (box.left + box.width / 2)) / REACH_X);
+      var ny = curve((pointer.y - (box.top + box.height / 2)) / REACH_Y);
+
+      face.style.translate =
+        (nx * FACE_X * unit).toFixed(2) + "px " + (ny * FACE_Y * unit).toFixed(2) + "px";
     });
   }
 

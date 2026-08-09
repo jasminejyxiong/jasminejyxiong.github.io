@@ -188,9 +188,19 @@ explicit choice has been stored.
   readers get one phrase rather than every keystroke.
 - **`reveal.js`** — the footer colophon types, holds, erases, and loops. Only
   starts when scrolled into view.
-- **`eyes.js`** — pupils track the cursor. Skipped on coarse pointers and
-  under reduced motion. Travel distance comes from `data-travel` in the
-  markup, not hard-coded, because the face and the small face differ.
+- **`eyes.js`** — pupils track the cursor, and the whole face drifts a little
+  behind them so it reads as a head turning rather than eyeballs rolling in a
+  fixed mask. Skipped on coarse pointers and under reduced motion.
+  - Horizontal and vertical are clamped **separately** (`REACH_X`/`REACH_Y`).
+    A single circular clamp barely moved the pupils sideways, because an eye
+    is far wider than it is tall.
+  - Travel comes from `data-travel-x` / `data-travel-y` in the markup (set in
+    `tools/build-face.py`), currently 19 and 7 SVG units. At 19 the iris still
+    sits ~4 units inside the sclera, leaving the sliver of white that makes a
+    full sideways glance read.
+  - Face drift is `FACE_X`/`FACE_Y` (5 and 2.5 units) plus a 260ms transition
+    on `.face` in CSS. The lag is deliberate — remove it and the drift feels
+    like a rigid pan.
 - **`theme.js`** — one bulb button. A pointer click drops focus so the ring
   doesn't linger; keyboard activation keeps it.
 - **View transitions** — cross-document, pure CSS. The wordmark holds still

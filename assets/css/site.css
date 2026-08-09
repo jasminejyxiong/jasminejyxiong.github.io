@@ -343,6 +343,12 @@ strong { font-weight: 700; }
   margin-inline: auto;
 }
 
+/* The face drifts behind the pupils when following the cursor. The lag is
+   the point — it reads as a head turning rather than a rigid pan. */
+@media (prefers-reduced-motion: no-preference) {
+  .face { transition: translate 260ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+}
+
 .face--sm { width: min(11rem, 40vw); margin-inline: 0; }
 
 /* Jasmine's exported parts. Fills are stripped in the source and assigned
