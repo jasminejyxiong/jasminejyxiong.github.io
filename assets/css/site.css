@@ -1,7 +1,7 @@
 /* =========================================================================
    jasminexiong.com
-   Typewriter type, graph-paper substrate, hand-drawn marginalia.
-   Everything is spaced in multiples of --grid so content sits ON the paper.
+   Typewriter type, a hand-drawn face, and marginalia.
+   Everything is spaced in multiples of --grid.
    ========================================================================= */
 
 /* ---- Fonts ------------------------------------------------------------ */
@@ -57,10 +57,8 @@
 :root {
   color-scheme: light dark;
 
-  /* --grid drives the spacing scale. The drawn cell is deliberately much
-     larger, so the paper reads as roomy rather than as a dense mesh. */
+  /* Drives the spacing scale. */
   --grid: 8px;
-  --grid-cell: 34px;
 
   --s-1: var(--grid);
   --s-2: calc(var(--grid) * 2);
@@ -99,18 +97,6 @@
   --blush:   #d05a52;
   --blush-alpha: light-dark(0.85, 0.95);
 
-  /* The grid is paper texture, not furniture — it should be felt more than
-     seen. Thin light lines on dark read fainter than dark on light, so dark
-     gets a nudge. light-dark() rather than a media query, so the manual theme
-     toggle is honoured too. */
-  --grid-ink: light-dark(
-    color-mix(in oklab, #14120f 7%, transparent),
-    color-mix(in oklab, #f2ede2 8%, transparent));
-  /* The two structural rules that frame the page — these carry the "grid"
-     idea deliberately, so the substrate doesn't have to shout. */
-  --rule-frame: light-dark(
-    color-mix(in oklab, #14120f 14%, transparent),
-    color-mix(in oklab, #f2ede2 15%, transparent));
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --dur: 200ms;
@@ -127,9 +113,6 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  /* The nameplate breaks out to full-viewport width. `clip` rather than
-     `hidden` so body doesn't become a scroll container, which would break the
-     position:fixed substrate. */
   overflow-x: clip;
   background: var(--bg);
   color: var(--fg);
@@ -142,56 +125,6 @@ body {
 
 img, svg, video { display: block; max-width: 100%; }
 img, video { height: auto; }
-
-/* ---- Graph-paper substrate -------------------------------------------- */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  /* One weight only, and both axes anchored to the centre. Overlaying a
-     second "major" scale drew a second line on top of an existing one, which
-     is what read as a doubled or dirty grid. Centre-anchoring also means the
-     frame rules below can land exactly on a gridline at any viewport width. */
-  background-image:
-    linear-gradient(var(--grid-ink) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px);
-  background-size:
-    100% var(--grid-cell),
-    var(--grid-cell) 100%;
-  background-position: 50% 50%;
-  /* Fade the paper out toward the edges so it never fights the frame. */
-  -webkit-mask-image: radial-gradient(ellipse 78% 68% at 50% 42%, #000 30%, transparent 100%);
-  mask-image: radial-gradient(ellipse 78% 68% at 50% 42%, #000 30%, transparent 100%);
-  view-transition-name: substrate;
-}
-
-/* Two vertical rules framing the content column. Structure you notice, in
-   place of a grid you can't ignore. */
-@media (min-width: 60rem) {
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      linear-gradient(90deg, var(--rule-frame) 1px, transparent 1px),
-      linear-gradient(90deg, var(--rule-frame) 1px, transparent 1px);
-    background-repeat: no-repeat;
-    /* 13.5 cells either side of centre. With percentage positioning the
-       viewport centre lands mid-cell, so a half-cell offset is what puts
-       these exactly on a gridline rather than 17px beside one. */
-    background-position:
-      calc(50% - var(--grid-cell) * 13.5) 0,
-      calc(50% + var(--grid-cell) * 13.5) 0;
-    background-size: 1px 100%;
-    -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
-    mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
-  }
-}
 
 /* ---- Layout ----------------------------------------------------------- */
 
@@ -409,12 +342,13 @@ strong { font-weight: 700; }
 .fc-spark { fill: var(--paper); }
 .fc-shade { fill: var(--fg); opacity: 0.18; }
 .fc-lid   { fill: var(--fg); }
-.fc-cheek {
-  fill: none;
-  stroke: var(--blush);
-  stroke-width: 1.1;
-  stroke-linecap: round;
-  opacity: calc(var(--blush-alpha) * 0.55);
+.fc-cheek { opacity: var(--blush-alpha); }
+
+/* Speckle over the iris — light noise screened onto the dark fill. */
+.fc-grain {
+  opacity: 0.3;
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 .fc-line  { fill: var(--blush); }
 
@@ -448,14 +382,17 @@ strong { font-weight: 700; }
 /* Two beats above the fold: the face up top, the typing line in the middle,
    and the name filling the bottom edge. */
 .hero {
-  min-height: 100svh;
+  /* The header sits above this, so a full 100svh would push the nameplate
+     exactly one header-height below the fold. */
+  min-height: calc(100svh - 8rem);
   margin-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   gap: var(--s-6);
-  padding-block: var(--s-4) 0;
+  padding-block: var(--s-4) var(--s-6);
+  padding-inline: var(--s-2);
   text-align: center;
 }
 
@@ -487,10 +424,7 @@ strong { font-weight: 700; }
    rather than guessing a vw size and overflowing. */
 .nameplate {
   margin: 0;
-  width: 100vw;
-  margin-inline: calc(50% - 50vw);
-  padding-inline: var(--s-3);
-  translate: 0 3%;
+  width: 100%;
 }
 
 .nameplate svg { display: block; width: 100%; height: auto; }
@@ -931,9 +865,7 @@ strong { font-weight: 700; }
 
   /* The wordmark and the paper hold still; only the content moves. */
   ::view-transition-old(wordmark),
-  ::view-transition-new(wordmark),
-  ::view-transition-old(substrate),
-  ::view-transition-new(substrate) {
+  ::view-transition-new(wordmark) {
     animation: none;
   }
 
