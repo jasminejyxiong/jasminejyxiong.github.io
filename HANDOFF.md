@@ -140,11 +140,11 @@ either fully visible or guillotined.
 
 Source artwork lives in **`~/Desktop/Face`** (outside the repo): `Left-eye`,
 `Right-eye`, `Left-close`, `right-close`, `nose`, `smile`, `bubble-full`,
-`bubble-pop` as SVG, plus `cheek-hq.png` and `jxlogo.png`.
+`bubble-pop` as SVG, plus `cheek-h1.png` and `jxlogo.png`.
 
 Those files get revised in place, and their **canvas sizes change between
-revisions** — the cheek has been 83×74, 728×648, 477×427 and 597×554, the
-burst 36×36 then 35×35. `tools/build-face.py` hard-codes those dimensions to
+revisions** — the cheek has been 83×74, 728×648, 477×427, 597×554 and
+635×554, the burst 36×36 then 35×35. `tools/build-face.py` hard-codes those dimensions to
 preserve aspect ratio and centring, so check them after any re-export:
 `cheek()` carries the cheek ratio, and the bubble/burst offsets assume half
 the artwork's width and height.

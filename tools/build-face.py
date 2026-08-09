@@ -85,7 +85,7 @@ def cheek(cx, cy, w, flip=False):
     6KB and keeps the real pencil character. It can't recolour with the theme,
     which is fine for a blush mark.
     """
-    h = w * 554 / 597                    # native 597x554
+    h = w * 554 / 635                    # native 635x554
     x, y = cx - w / 2, cy - h / 2
     t = f' transform="translate({2 * cx:.0f} 0) scale(-1 1)"' if flip else ""
     return (f'<image class="fc-cheek" href="/assets/img/cheek.png" '
