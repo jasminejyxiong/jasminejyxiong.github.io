@@ -54,7 +54,6 @@
      larger, so the paper reads as roomy rather than as a dense mesh. */
   --grid: 8px;
   --grid-cell: 34px;
-  --grid-cell-major: 170px;
 
   --s-1: var(--grid);
   --s-2: calc(var(--grid) * 2);
@@ -72,29 +71,42 @@
   --font-body: "iA Writer Quattro", "Quattro Fallback", ui-monospace, "SF Mono", Menlo, monospace;
   --font-mono: "iA Writer Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  --bg:      light-dark(#faf7f0, #16150f);
-  --fg:      light-dark(#1c1a17, #ece8de);
-  --muted:   light-dark(#6b6660, #9a958a);
-  --rule:    light-dark(#e0dace, #2e2c24);
-  --accent:  light-dark(#b4552d, #e08a5c);
-  --mark:    light-dark(#e8a08b, #8a4526);
-  --paper:   light-dark(#fffdf8, #1d1b14);
+  /* Palette drawn from the lily-pond reference. The landing page stays cream
+     and near-black: the "black" is dark green, which reads as ink at text
+     size but keeps the whole page in one family. Moss, midnight green and
+     rosy brown do the accent work. */
+  --beige:    #f7f4d5;
+  --dark-green: #0a3323;
+  --moss:     #839958;
+  --midnight: #105666;
+  --rosy:     #d3968c;
+
+  --bg:      light-dark(#f7f4d5, #0a3323);
+  --fg:      light-dark(#0a3323, #f7f4d5);
+  --paper:   light-dark(#fdfbe8, #0d3d2b);
+  --muted:   light-dark(
+               color-mix(in oklab, #0a3323 58%, #f7f4d5),
+               color-mix(in oklab, #839958 82%, #f7f4d5));
+  --rule:    light-dark(
+               color-mix(in oklab, #0a3323 16%, #f7f4d5),
+               color-mix(in oklab, #f7f4d5 16%, #0a3323));
+  --accent:  light-dark(#105666, #d3968c);
+  --mark:    light-dark(#d3968c, color-mix(in oklab, #d3968c 78%, #0a3323));
+  --blush:   #d3968c;
+  --blush-alpha: light-dark(0.8, 1);
 
   /* The grid is paper texture, not furniture — it should be felt more than
      seen. Thin light lines on dark read fainter than dark on light, so dark
      gets a nudge. light-dark() rather than a media query, so the manual theme
      toggle is honoured too. */
   --grid-ink: light-dark(
-    color-mix(in oklab, #1c1a17 3.5%, transparent),
-    color-mix(in oklab, #ece8de 4.5%, transparent));
-  --grid-ink-major: light-dark(
-    color-mix(in oklab, #1c1a17 6%, transparent),
-    color-mix(in oklab, #ece8de 7%, transparent));
+    color-mix(in oklab, #0a3323 8%, transparent),
+    color-mix(in oklab, #f7f4d5 8%, transparent));
   /* The two structural rules that frame the page — these carry the "grid"
      idea deliberately, so the substrate doesn't have to shout. */
   --rule-frame: light-dark(
-    color-mix(in oklab, #1c1a17 11%, transparent),
-    color-mix(in oklab, #ece8de 11%, transparent));
+    color-mix(in oklab, #0a3323 15%, transparent),
+    color-mix(in oklab, #f7f4d5 15%, transparent));
 
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --dur: 200ms;
@@ -131,16 +143,17 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  /* One weight only, and both axes anchored to the centre. Overlaying a
+     second "major" scale drew a second line on top of an existing one, which
+     is what read as a doubled or dirty grid. Centre-anchoring also means the
+     frame rules below can land exactly on a gridline at any viewport width. */
   background-image:
-    linear-gradient(var(--grid-ink-major) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-ink-major) 1px, transparent 1px),
     linear-gradient(var(--grid-ink) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px);
   background-size:
-    100% var(--grid-cell-major),
-    var(--grid-cell-major) 100%,
     100% var(--grid-cell),
     var(--grid-cell) 100%;
+  background-position: 50% 50%;
   /* Fade the paper out toward the edges so it never fights the frame. */
   -webkit-mask-image: radial-gradient(ellipse 78% 68% at 50% 42%, #000 30%, transparent 100%);
   mask-image: radial-gradient(ellipse 78% 68% at 50% 42%, #000 30%, transparent 100%);
@@ -160,9 +173,12 @@ body::before {
       linear-gradient(90deg, var(--rule-frame) 1px, transparent 1px),
       linear-gradient(90deg, var(--rule-frame) 1px, transparent 1px);
     background-repeat: no-repeat;
+    /* 13.5 cells either side of centre. With percentage positioning the
+       viewport centre lands mid-cell, so a half-cell offset is what puts
+       these exactly on a gridline rather than 17px beside one. */
     background-position:
-      calc(50% - var(--measure-wide) / 2 - var(--s-6)) 0,
-      calc(50% + var(--measure-wide) / 2 + var(--s-6)) 0;
+      calc(50% - var(--grid-cell) * 13.5) 0,
+      calc(50% + var(--grid-cell) * 13.5) 0;
     background-size: 1px 100%;
     -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
     mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
@@ -377,11 +393,11 @@ strong { font-weight: 700; }
 
 .face-eye { fill: var(--fg); stroke: none; }
 .face-glint { fill: var(--paper); stroke: none; }
-.face-blush { fill: var(--accent); opacity: 0.42; stroke: none; }
+.face-blush { fill: var(--blush); opacity: var(--blush-alpha); stroke: none; }
 
 .face-nose {
   fill: none;
-  stroke: var(--accent);
+  stroke: var(--blush);
   stroke-width: 2.6;
   stroke-linecap: round;
 }
