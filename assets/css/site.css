@@ -77,7 +77,7 @@
   --bg:      light-dark(#ecd8cf, #14120f);
   --fg:      light-dark(#14120f, #f0e4da);
   /* Cards lift off the ground rather than glaring white against it. */
-  --paper:   light-dark(#f6e7e0, #1c1a16);
+  --paper:   light-dark(#faf5ef, #1c1a16);
   --muted:   light-dark(
                color-mix(in oklab, #14120f 55%, #ecd8cf),
                color-mix(in oklab, #f0e4da 52%, #14120f));
@@ -147,8 +147,8 @@ main .hero-typing { max-width: none; }
 /* The work grid gets a wider column than the reading measure, so two tiles
    fit per row without shrinking the hero images. */
 #work {
-  width: min(76rem, 100vw - 3rem);
-  margin-inline: calc(50% - min(38rem, 50vw - 1.5rem));
+  width: min(66rem, 100vw - 3rem);
+  margin-inline: calc(50% - min(33rem, 50vw - 1.5rem));
 }
 
 #work .section-rule { max-width: none; }
@@ -199,7 +199,7 @@ section { margin-top: var(--s-12); }
 .site-nav a {
   color: var(--muted);
   text-decoration: none;
-  padding-bottom: 2px;
+  padding-block: 3px 2px;
   border-bottom: 1px solid transparent;
   transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
@@ -401,9 +401,10 @@ strong { font-weight: 700; }
 
   @keyframes snore-pop {
     0%, 57%   { opacity: 0; scale: 0.55; }
-    61%       { opacity: 1; scale: 1; }
-    72%       { opacity: 0; scale: 1.45; }
-    100%      { opacity: 0; scale: 1.45; }
+    60%       { opacity: 1; scale: 1; }
+    65%       { opacity: 0.9; scale: 1.28; }
+    66.5%     { opacity: 0; scale: 1.36; }
+    100%      { opacity: 0; scale: 1.36; }
   }
 
   /* A blink swaps cels rather than squashing. The two states cross-fade over
@@ -560,7 +561,7 @@ strong { font-weight: 700; }
   aspect-ratio: 16 / 10;
   display: grid;
   place-items: center;
-  background: color-mix(in oklab, var(--fg) 8%, var(--paper));
+  background: light-dark(#e9e4de, #262320);
   color: var(--muted);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
