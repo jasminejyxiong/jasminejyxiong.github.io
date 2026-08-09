@@ -580,9 +580,9 @@ strong { font-weight: 700; }
 /* Thematic doodle, tucked into the corner and revealed on hover. */
 .tile-doodle {
   position: absolute;
-  top: -54px;
-  right: -52px;
-  width: 176px;
+  top: -34px;
+  right: -30px;
+  width: 116px;
   height: auto;
   color: var(--fg);
   fill: currentColor;
@@ -700,7 +700,7 @@ strong { font-weight: 700; }
 
 @media (max-width: 62rem) {
   .tiles { grid-template-columns: 1fr; }
-  .tile-doodle { width: 130px; top: -40px; right: -34px; }
+  .tile-doodle { width: 96px; top: -26px; right: -22px; }
 }
 
 @media (max-width: 30rem) {
