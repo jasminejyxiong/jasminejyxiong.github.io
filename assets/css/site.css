@@ -29,15 +29,22 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "Averia Serif Libre";
-  src: url("/assets/fonts/averia-regular.woff2") format("woff2");
+  font-family: "Instrument Serif";
+  src: url("/assets/fonts/instrument-serif.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Averia Serif Libre";
-  src: url("/assets/fonts/averia-bold.woff2") format("woff2");
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/playfair-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/assets/fonts/playfair-bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -65,25 +72,26 @@
   --gutter: var(--s-3);
 
   --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-display: "Averia Serif Libre", Georgia, "Times New Roman", serif;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
 
   /* Soft cream and black, with the red from the face illustration carrying
      the warmth. */
-  --cream: #f7f3e9;
+  --cream: #e4caba;
   --ink:   #14120f;
   --red:   #d05a52;
 
-  --bg:      light-dark(#f7f3e9, #14120f);
-  --fg:      light-dark(#14120f, #f2ede2);
-  --paper:   light-dark(#fffdf7, #1c1a16);
+  --bg:      light-dark(#e4caba, #14120f);
+  --fg:      light-dark(#14120f, #f0e4da);
+  /* Cards lift off the ground rather than glaring white against it. */
+  --paper:   light-dark(#eeddd1, #1c1a16);
   --muted:   light-dark(
-               color-mix(in oklab, #14120f 52%, #f7f3e9),
-               color-mix(in oklab, #f2ede2 52%, #14120f));
+               color-mix(in oklab, #14120f 55%, #e4caba),
+               color-mix(in oklab, #f0e4da 52%, #14120f));
   --rule:    light-dark(
-               color-mix(in oklab, #14120f 15%, #f7f3e9),
-               color-mix(in oklab, #f2ede2 17%, #14120f));
-  --accent:  light-dark(#b8483c, #e2857b);
-  --mark:    light-dark(#eeb0a8, color-mix(in oklab, #d05a52 62%, #14120f));
+               color-mix(in oklab, #14120f 20%, #e4caba),
+               color-mix(in oklab, #f0e4da 17%, #14120f));
+  --accent:  light-dark(#a83a2e, #e2857b);
+  --mark:    light-dark(#e79a90, color-mix(in oklab, #d05a52 62%, #14120f));
   --blush:   #d05a52;
   --blush-alpha: light-dark(0.85, 0.95);
 
@@ -340,22 +348,22 @@ strong { font-weight: 700; }
 /* Blink. Scaling the eye group is enough — the cheeks, nose and smile sit
    outside it, so they stay put. */
 @media (prefers-reduced-motion: no-preference) {
-  /* A real blink swaps cels rather than squashing: the open eye and its lash
-     line cut out, Jasmine's drawn closed curve cuts in. The 0.1% steps make
-     each swap instant — roughly 170ms shut, which is about life-sized. */
-  .fc-open, .fc-lid { animation: blink-open 6.8s linear infinite; }
-  .fc-closed { animation: blink-closed 6.8s linear infinite; }
+  /* A blink swaps cels rather than squashing. The two states cross-fade over
+     ~55ms and overlap slightly, which reads as a lid travelling rather than a
+     hard cut — and the close is quicker than the open, as a real blink is. */
+  .fc-open, .fc-lid { animation: blink-open 6.8s ease-in-out infinite; }
+  .fc-closed { animation: blink-closed 6.8s ease-in-out infinite; }
 
   @keyframes blink-open {
-    0%, 93.5% { opacity: 1; }
-    93.6%, 96.2% { opacity: 0; }
-    96.3%, 100% { opacity: 1; }
+    0%, 93.2% { opacity: 1; }
+    94%, 95.6% { opacity: 0; }
+    96.8%, 100% { opacity: 1; }
   }
 
   @keyframes blink-closed {
-    0%, 93.5% { opacity: 0; }
-    93.6%, 96.2% { opacity: 1; }
-    96.3%, 100% { opacity: 0; }
+    0%, 93.4% { opacity: 0; }
+    94.2%, 95.4% { opacity: 1; }
+    96.6%, 100% { opacity: 0; }
   }
 }
 
@@ -366,9 +374,10 @@ strong { font-weight: 700; }
 .hero {
   /* Subtract the header, which sits above this, then add back enough that the
      bottom quarter of the name falls past the fold — so scrolling reveals the
-     rest of it rather than the name being cut off. The 10.9vw comes from the
-     nameplate's aspect ratio: it renders at 0.268 x its width. */
-  min-height: calc(100svh - 8rem + 10.9vw);
+     rest of it rather than the name being cut off. The 19.4vw comes from the
+     nameplate's aspect ratio: it renders at 0.452 x its width, and the fold
+     should land three-quarters down the caps. */
+  min-height: calc(100svh - 8rem + 19.4vw);
   margin-top: 0;
   display: flex;
   flex-direction: column;
@@ -480,11 +489,58 @@ strong { font-weight: 700; }
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--s-1);
-  padding: var(--s-3);
   background: var(--paper);
   border: 1px solid var(--rule);
   transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+/* Dedicated slot for the project's hero image. */
+.tile-media {
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  background: color-mix(in oklab, var(--fg) 8%, var(--paper));
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tile-media img { width: 100%; height: 100%; object-fit: cover; }
+
+.tile-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding: var(--s-3);
+}
+
+/* Thematic doodle, tucked into the corner and revealed on hover. */
+.tile-doodle {
+  position: absolute;
+  top: -20px;
+  right: -16px;
+  width: 78px;
+  height: auto;
+  color: var(--fg);
+  fill: currentColor;
+  stroke: currentColor;
+  pointer-events: none;
+  opacity: 0;
+  rotate: -10deg;
+  scale: 0.8;
+  transition: opacity 220ms var(--ease), rotate 260ms var(--ease), scale 260ms var(--ease);
+}
+
+.tile:hover .tile-doodle,
+.tile:focus-within .tile-doodle {
+  opacity: 1;
+  rotate: 5deg;
+  scale: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile-doodle { transition-duration: 1ms; }
 }
 
 .tile:hover,
@@ -493,20 +549,12 @@ strong { font-weight: 700; }
   border-color: var(--accent);
 }
 
-.tile-num {
-  font-family: var(--font-body);
-  font-size: 0.6875rem;
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-}
-
 .tile-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 1.0625rem;
+  font-size: 1.375rem;
   font-weight: 400;
-  line-height: 1.35;
+  line-height: 1.25;
 }
 
 .tile-title a {
